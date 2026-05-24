@@ -1,0 +1,204 @@
+/* styling and layout for html files/front end */
+
+/* global defaults for entire site */
+* {
+    background-color: #f7f7f7;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* base/body font size and spacing */
+body {
+    font-size: 18px;
+    padding: 20px;
+}
+
+/* text and links line height */
+a, p {
+    line-height: 150%;    
+}
+
+/* class to center text and spacing */
+.center_text {
+    margin: 15px;  
+    text-align: center; 
+}
+
+/* consistent styling for input fields, dropdowns, and text areas */
+input, textarea, select {
+    border: 2px solid black;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fff;
+    width: min(520px, 100%);
+}
+
+/* text area (business description) mininum height and resizing */
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* navigation bar layout and styling */
+.navbar {
+    border: 2px solid black;
+
+    /* turns navbar into responsive flexbox*/
+    display: flex; 
+    flex-wrap: wrap;
+    align-items: center;
+
+    /* sticks to top when scrolling*/
+    position:sticky; 
+    top: 0;
+    z-index: 1000;
+
+    /* spacing */
+    justify-content: space-evenly;
+    padding: 10px 30px;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+/* navbar link styling and hover animation*/
+.navbar a {
+    text-decoration: none;
+    padding: 10px 20px 10px 0;
+    transition: transform 0.1s;
+}
+
+.navbar a:hover {
+    transform: scale(1.01);
+}
+
+/* button styling and hover animation  */
+button {
+    background-color: #fafafa;
+    color: black;
+    padding: 8px;
+    margin: 10px 0;
+    border: 2px solid black;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+button:hover {
+    background-color: #f8f8f8;
+    transform: scale(1.01);
+}
+
+/* page layout */
+.page {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* responsive grid layout for business cards. */
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+/* individual business cards styling and flex layout */
+.card {
+    border: 2px solid black;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    min-height: 180px;
+    font-size: 19px;
+    position: relative;
+}
+
+/* photo in each business card styling */
+.card-photo {
+    width: 30%;
+    height: 150px;
+    flex: 0 0 30%;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* text in each business card styling */
+.card-body {
+    flex: 1 1 70%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-left: 10px;
+    padding-right: 76px;
+}
+
+.card-title {
+    font-size: 24px;
+}
+
+.card-rating {
+    font-size: 20px;
+    font-weight: normal;
+    margin-left: 4px;
+}
+
+.card-location {
+    margin: 0;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+/* description/textarea in each business card layout */
+.card-description {
+    margin: 0;
+    line-height: 1.5;
+    max-height: 3em; /* 3*fontsize */
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* position save button in the top-right corner of business card */
+.card-save {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    margin: 0;
+    font-size: 14px;
+    padding: 6px 10px;
+}
+
+/* styling and layout for detailed card view */
+.details-view {
+    max-width: 1600px;
+}
+
+.details-view .card {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.details-view .card-body {
+    padding-right: 0;
+}
+
+.details-view .card-photo {
+    height: auto;
+    align-self: stretch;
+}
+
+.details-view p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
