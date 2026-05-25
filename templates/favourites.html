@@ -18,6 +18,15 @@
 </div>
 
 <section>
+    <h2>Artists</h2>
+    <p>
+        {% for g in favourites.artists %}
+            {{ g }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+</section>
+
+<section>
     <h2>Music</h2>
     <p>
         {% for m in favourites.music %}
@@ -31,15 +40,6 @@
     <p>
         {% for f in favourites.food %}
             {{ f }}{% if not loop.last %}, {% endif %}
-        {% endfor %}
-    </p>
-</section>
-
-<section>
-    <h2>Games</h2>
-    <p>
-        {% for g in favourites.games %}
-            {{ g }}{% if not loop.last %}, {% endif %}
         {% endfor %}
     </p>
 </section>
