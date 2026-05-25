@@ -1,23 +1,59 @@
-projects = [
+timeline = [
     {
-        "name": "Sample Project",
-        "description": "This is a placeholder project.",
-        "tech": ["Python", "Flask"]
+        "year": "2026",
+        "title": "Built Flask Portfolio Website",
+        "category": "Project",
+        "description": "Created a personal portfolio website using Flask and Jinja2.",
+        "tech": ["Flask", "HTML", "CSS"]
+    },
+
+    {
+        "year": "2025",
+        "title": "FBLA Competition",
+        "category": "Achievement",
+        "description": "Participated in business and technology competitions.",
+        "tech": []
+    },
+
+    {
+        "year": "2024",
+        "title": "Started Programming",
+        "category": "Experience",
+        "description": "Began learning Python and web development.",
+        "tech": ["Python"]
     }
 ]
 
-achievements = [
-    "Joined FBLA",
-    "Completed coding competition"
-]
+favourites = {
+    "music": [
+        "Artist 1",
+        "Artist 2"
+    ],
+
+    "food": [
+        "Pizza",
+        "Sushi"
+    ],
+
+    "games": [
+        "Minecraft",
+        "Chess"
+    ]
+}
 
 hobbies = [
-    "Ultimate Frisbee",
-    "Gym",
-    "Coding"
-]
+    {
+        "name": "Ultimate Frisbee",
+        "description": "Best sport ever, on high school varisty team"
+    },
 
-favorites = {
-    "music": ["Artist 1", "Artist 2"],
-    "food": ["Pizza", "Sushi"]
-}
+    {
+        "name": "Chess",
+        "description": "Been playing since I was 6, 1850 rating on chess.com"
+    },
+
+    {
+        "name": "Piano",
+        "description": "Been playing since I was 6, completed RCM level 10"
+    }
+]

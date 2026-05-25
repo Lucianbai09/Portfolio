@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="center_text">Favourites & Hobbies</h1>
+
+<div class="card-grid">
+
+    <h2>Hobbies</h2>
+
+    {% for hobby in hobbies %}
+    <div class="card">
+        <h3>{{ hobby.name }}</h3>
+        <p>{{ hobby.description }}</p>
+    </div>
+    {% endfor %}
+
+</div>
+
+<section>
+    <h2>Music</h2>
+    <p>
+        {% for m in favourites.music %}
+            {{ m }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+</section>
+
+<section>
+    <h2>Food</h2>
+    <p>
+        {% for f in favourites.food %}
+            {{ f }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+</section>
+
+<section>
+    <h2>Games</h2>
+    <p>
+        {% for g in favourites.games %}
+            {{ g }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+</section>
+
+{% endblock %}

@@ -1,81 +1,70 @@
-/* styling and layout for html files/front end */
-
-/* global defaults for entire site */
+/* global defaults */
 * {
-    background-color: #f7f7f7;
-    color: #222;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* base/body font size and spacing */
+/* base/body */
 body {
     font-size: 18px;
     padding: 20px;
+
+    background-color: #f7f7f7;
+    color: #222;
+
+    transition: 0.2s ease;
 }
 
-/* text and links line height */
+/* text */
 a, p {
-    line-height: 150%;    
+    line-height: 150%;
 }
 
-/* class to center text and spacing */
+/* links (light mode) */
+a,
+a:visited,
+a:hover,
+a:active {
+    color: #222;
+    text-decoration: none;
+}
+
+/* center helper */
 .center_text {
-    margin: 15px;  
-    text-align: center; 
+    margin: 15px;
+    text-align: center;
 }
 
-/* consistent styling for input fields, dropdowns, and text areas */
-input, textarea, select {
-    border: 2px solid black;
-    padding: 8px;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #fff;
-    width: min(520px, 100%);
-}
-
-/* text area (business description) mininum height and resizing */
-textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-/* navigation bar layout and styling */
+/* navbar */
 .navbar {
     border: 2px solid black;
 
-    /* turns navbar into responsive flexbox*/
-    display: flex; 
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
 
-    /* sticks to top when scrolling*/
-    position:sticky; 
+    position: sticky;
     top: 0;
     z-index: 1000;
 
-    /* spacing */
     justify-content: space-evenly;
     padding: 10px 30px;
     margin-bottom: 30px;
     gap: 10px;
+
+    background-color: #f7f7f7;
 }
 
-/* navbar link styling and hover animation*/
+/* navbar links */
 .navbar a {
     text-decoration: none;
     padding: 10px 20px 10px 0;
-    transition: transform 0.1s;
+    color: inherit;
 }
 
-.navbar a:hover {
-    transform: scale(1.01);
-}
-
-/* button styling and hover animation  */
+/* button */
 button {
     background-color: #fafafa;
     color: black;
@@ -84,12 +73,6 @@ button {
     border: 2px solid black;
     border-radius: 12px;
     cursor: pointer;
-    transition: 0.1s;
-}
-
-button:hover {
-    background-color: #f8f8f8;
-    transform: scale(1.01);
 }
 
 /* page layout */
@@ -98,107 +81,119 @@ button:hover {
     margin: 0 auto;
 }
 
-/* responsive grid layout for business cards. */
+/* cards */
 .card-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
 }
 
-/* individual business cards styling and flex layout */
 .card {
     border: 2px solid black;
     background-color: #fafafa;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
+
     padding: 16px;
-    min-height: 180px;
-    font-size: 19px;
+    margin-bottom: 16px;
+}
+
+/* timeline */
+.timeline {
     position: relative;
-}
-
-/* photo in each business card styling */
-.card-photo {
-    width: 30%;
-    height: 150px;
-    flex: 0 0 30%;
-    border: 2px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
-/* text in each business card styling */
-.card-body {
-    flex: 1 1 70%;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-left: 10px;
-    padding-right: 76px;
-}
-
-.card-title {
-    font-size: 24px;
-}
-
-.card-rating {
-    font-size: 20px;
-    font-weight: normal;
-    margin-left: 4px;
-}
-
-.card-location {
-    margin: 0;
-    font-weight: bold;
-    text-transform: capitalize;
-}
-
-/* description/textarea in each business card layout */
-.card-description {
-    margin: 0;
-    line-height: 1.5;
-    max-height: 3em; /* 3*fontsize */
-    overflow: hidden;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-}
-
-/* position save button in the top-right corner of business card */
-.card-save {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    margin: 0;
-    font-size: 14px;
-    padding: 6px 10px;
-}
-
-/* styling and layout for detailed card view */
-.details-view {
-    max-width: 1600px;
-}
-
-.details-view .card {
-    width: min(1100px, 100%);
+    max-width: 900px;
     margin: 0 auto;
-    align-items: stretch;
+    padding: 20px 0;
 }
 
-.details-view .card-body {
-    padding-right: 0;
+/* center line */
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: black;
+    transform: translateX(-50%);
 }
 
-.details-view .card-photo {
-    height: auto;
-    align-self: stretch;
+/* timeline item */
+.timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 10px 20px;
+    margin-bottom: 30px;
 }
 
-.details-view p {
-    overflow-wrap: anywhere;
-    word-break: break-word;
+/* left side */
+.timeline-item.left {
+    left: 0;
+    text-align: right;
+}
+
+/* right side */
+.timeline-item.right {
+    left: 50%;
+}
+
+/* timeline dot */
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+}
+
+/* left dot */
+.timeline-item.left::before {
+    right: -6px;
+}
+
+/* right dot */
+.timeline-item.right::before {
+    left: -6px;
+}
+
+/* dark mode */
+.dark {
+    background-color: #111;
+    color: #f7f7f7;
+}
+
+/* navbar dark mode */
+.dark .navbar {
+    background-color: #111;
+    border-color: #f7f7f7;
+}
+
+/* card dark mode */
+.dark .card {
+    background-color: #1a1a1a;
+    border-color: #f7f7f7;
+}
+
+/* button dark mode */
+.dark button {
+    background-color: #222;
+    color: #f7f7f7;
+    border-color: #f7f7f7;
+}
+
+/* link dark mode */
+.dark a,
+.dark a:visited,
+.dark a:hover,
+.dark a:active {
+    color: #f7f7f7;
+}
+
+/* timeline line dark mode */
+.dark .timeline::before {
+    background: #f7f7f7;
+}
+
+/* timeline dot dark mode */
+.dark .timeline-item::before {
+    background: #f7f7f7;
 }
