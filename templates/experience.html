@@ -5,17 +5,11 @@
 <h1 class="center_text">Experience Timeline</h1>
 
 <div class="timeline">
-
     {% for item in timeline %}
-
     <div class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
-
         <h3>{{ item.title }}</h3>
-
         <p><strong>{{ item.year }}</strong></p>
-
         <p>{{ item.category }}</p>
-
         <p>{{ item.description }}</p>
 
         {% if item.tech %}
@@ -25,11 +19,10 @@
             {% endfor %}
         </p>
         {% endif %}
-
     </div>
-
     {% endfor %}
-
 </div>
+
+<br> <!-- extra line at bottom of main before footer -->
 
 {% endblock %}

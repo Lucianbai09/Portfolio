@@ -5,41 +5,38 @@
 <h1 class="center_text">Favourites & Hobbies</h1>
 
 <div class="card-grid">
-
-    <h2>Hobbies</h2>
-
+    <h2 class="center_text" style="margin: 0;">Hobbies</h2> <!-- hard coded margin 0 -->
     {% for hobby in hobbies %}
-    <div class="card">
+    <div class="card center_text" style="margin: 5px;"> <!-- hard coded margin 5px -->
         <h3>{{ hobby.name }}</h3>
         <p>{{ hobby.description }}</p>
     </div>
     {% endfor %}
-
 </div>
 
-<section>
+<section class="center_text">
     <h2>Artists</h2>
     <p>
-        {% for g in favourites.artists %}
-            {{ g }}{% if not loop.last %}, {% endif %}
+        {% for a in favourites.artist %}
+            {{ a }}{% if not loop.last %}<br>{% endif %}
         {% endfor %}
     </p>
 </section>
 
-<section>
+<section class="center_text">
     <h2>Music</h2>
     <p>
         {% for m in favourites.music %}
-            {{ m }}{% if not loop.last %}, {% endif %}
+            {{ m }}{% if not loop.last %}<br>{% endif %}
         {% endfor %}
     </p>
 </section>
 
-<section>
+<section class="center_text">
     <h2>Food</h2>
     <p>
         {% for f in favourites.food %}
-            {{ f }}{% if not loop.last %}, {% endif %}
+            {{ f }}{% if not loop.last %}<br>{% endif %}
         {% endfor %}
     </p>
 </section>
