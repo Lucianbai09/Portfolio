@@ -5,7 +5,19 @@ timeline = [
         "category": "Experience",
         "description": "Began self-learning Python online through the MOOC 2024 online course.",
 
-        "image": "mooc2024.webp"
+        "image": "mooc2024.webp",
+        "link": "https://programming-24.mooc.fi/"
+    },
+
+    {
+        "year": "2025-2026",
+        "title": "Founded Berczy Ultimate",
+        "category": "Project",
+        "description": """Co-founded Berczy Ultimate, a local youth ultimate frisbee club hosting weekly drop in meetings
+        promoting an inclusive and diverse environment. Sponsered by Ultimate Canada.""",
+
+        "image": "mooc2024.webp",
+        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
     },
 
     {
@@ -14,7 +26,8 @@ timeline = [
         "category": "Competition",
         "description": "Placed 5th nationally in team competition with 'Locally' project as a solo participant",
 
-        "image": "fblc.webp"
+        "image": "fblc.webp",
+        "link": "https://fblc.ca/coding-and-programming"
     },
 
     {
@@ -24,7 +37,8 @@ timeline = [
         "description": """Web application that helps users discover and support small local 
         businesses. Built with Flask (Jinja2), PostgreSQL, HTML, and CSS.""",
 
-        "image": ""
+        "image": "locally.webp",
+        "link": "https://fblc-business-project-fwjvzk3wl-lucian-bais-projects.vercel.app/"
     },
 
     {
