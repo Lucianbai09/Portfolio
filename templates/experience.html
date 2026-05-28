@@ -7,18 +7,17 @@
 <div class="timeline">
     {% for item in timeline %}
     <div class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
-        <h3>{{ item.title }}</h3>
-        <p><strong>{{ item.year }}</strong></p>
-        <p>{{ item.category }}</p>
-        <p>{{ item.description }}</p>
+        <div class="card timeline-card">
+            
+            <h3>{{ item.title }}</h3>
+            <p><strong>{{ item.year }}</strong> • {{ item.category }}</p>
+            <p>{{ item.description }}</p>
 
-        {% if item.tech %}
-        <p>
-            {% for tech in item.tech %}
-                {{ tech }}{% if not loop.last %}, {% endif %}
-            {% endfor %}
-        </p>
-        {% endif %}
+            {% if item.image %}
+            <img src="{{ url_for('static', filename='images/' + item.image) }}" class="timeline-image">
+            {% endif %}
+
+        </div>
     </div>
     {% endfor %}
 </div>

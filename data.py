@@ -3,31 +3,37 @@ timeline = [
         "year": "2024-2025",
         "title": "Started Programming",
         "category": "Experience",
-        "description": "Began learning Python online through the MOOC 2024 online course.",
-        "tech": ["Python"]
+        "description": "Began self-learning Python online through the MOOC 2024 online course.",
+
+        "image": "mooc2024.webp"
     },
 
     {
         "year": "2026",
         "title": "FBLC: Coding and Programming",
         "category": "Competition",
-        "description": "Placed 5th nationally with 'Locally' project"
+        "description": "Placed 5th nationally in team competition with 'Locally' project as a solo participant",
+
+        "image": "fblc.webp"
     },
 
     {
         "year": "2026",
         "title": "Locally",
         "category": "Project",
-        "description": "Web application to find and support for small local businesses",
-        "tech": ["Flask", "PostgreSQL", "HTML", "CSS"]
+        "description": """Web application that helps users discover and support small local 
+        businesses. Built with Flask (Jinja2), PostgreSQL, HTML, and CSS.""",
+
+        "image": ""
     },
 
     {
         "year": "2026",
         "title": "Built Flask Portfolio Website",
         "category": "Project",
-        "description": "Created a personal portfolio website using Flask and Jinja2.",
-        "tech": ["Flask", "Javascript", "HTML", "CSS"]
+        "description": "Created a personal portfolio website using Flask (Jinja2), JavaScript, HTML and CSS.",
+
+        "image": ""
     }
 ]
 
