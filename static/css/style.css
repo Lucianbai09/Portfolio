@@ -80,6 +80,7 @@ button {
 
 .card {
     border: 2px solid black;
+    border-radius: 12px;
     background-color: #fafafa;
     padding: 12px 16px;
     margin-bottom: 16px;
@@ -151,7 +152,7 @@ button {
     gap: 4px;
 
     min-height: 180px;
-    max-height: 320px;
+    max-height: 360px;
 
     overflow: hidden;
 

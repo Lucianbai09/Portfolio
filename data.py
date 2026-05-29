@@ -10,9 +10,29 @@ timeline = [
     },
 
     {
+        "year": "2025",
+        "title": "Pedalheads Bike Instructor",
+        "category": "Experience",
+        "description": "",
+
+        "image": "mooc2024.webp",
+        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+    },
+
+    {
+        "year": "2025",
+        "title": "Go-Kart Couch",
+        "category": "Project",
+        "description": "",
+
+        "image": "mooc2024.webp",
+        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+    },
+
+    {
         "year": "2025-2026",
         "title": "Founded Berczy Ultimate",
-        "category": "Project",
+        "category": "Experience",
         "description": """Co-founded Berczy Ultimate, a local youth ultimate frisbee club hosting weekly drop in meetings
         promoting an inclusive and diverse environment. Sponsered by Ultimate Canada.""",
 
@@ -43,12 +63,34 @@ timeline = [
 
     {
         "year": "2026",
+        "title": "Young Sparks STEM Workshop",
+        "category": "Experience",
+        "description": "",
+
+        "image": "mooc2024.webp",
+        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+    },
+
+    {
+        "year": "2026",
         "title": "Built Flask Portfolio Website",
         "category": "Project",
         "description": "Created a personal portfolio website using Flask (Jinja2), JavaScript, HTML and CSS.",
 
-        "image": ""
-    }
+        "image": "",
+        "link": ""
+    },
+
+    {
+        "year": "2026",
+        "title": "Nokia Future Tech Summer Internship",
+        "category": "Experience",
+        "description": "",
+
+        "image": "mooc2024.webp",
+        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+    },
+
 ]
 
 favourites = {
