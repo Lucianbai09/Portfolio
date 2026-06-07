@@ -15,7 +15,7 @@ timeline = [
         "category": "Experience",
         "description": "",
 
-        "image": "mooc2024.webp",
+        "image": "pedalheads.webp",
         "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
     },
 
@@ -67,7 +67,7 @@ timeline = [
         "category": "Experience",
         "description": "",
 
-        "image": "mooc2024.webp",
+        "image": "workshop.webp",
         "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
     },
 
@@ -77,8 +77,8 @@ timeline = [
         "category": "Project",
         "description": "Created a personal portfolio website using Flask (Jinja2), JavaScript, HTML and CSS.",
 
-        "image": "",
-        "link": ""
+        "image": "mooc2024.webp",
+        "link": "http://127.0.0.1:5000/"
     },
 
     {
@@ -87,8 +87,8 @@ timeline = [
         "category": "Experience",
         "description": "",
 
-        "image": "mooc2024.webp",
-        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        "image": "nokia.webp",
+        "link": "https://www.nokia.com/careers/our-locations/canada/students-and-graduates/future-tech-summer-internship/"
     },
 
 ]
