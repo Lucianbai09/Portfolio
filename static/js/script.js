@@ -1,4 +1,50 @@
-// toggle light/dark theme
 function toggleTheme() {
     document.body.classList.toggle("dark");
+    localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "");
+}
+
+// favourites carousel — all cards pre-rendered, iframes never destroyed
+const carousels = {};
+
+function initCarousel(id, items) {
+    const track = document.querySelector('#carousel-' + id + ' .carousel-track');
+    items.forEach(function(item) {
+        const card = document.createElement('div');
+        card.className = 'fav-card' + (item.embed ? ' spotify-card' : '');
+        if (item.embed) {
+            const iframe = document.createElement('iframe');
+            iframe.src = item.embed + '?utm_source=generator';
+            iframe.setAttribute('frameBorder', '0');
+            iframe.setAttribute('scrolling', 'no');
+            iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+            card.appendChild(iframe);
+        } else {
+            if (item.link) {
+                card.classList.add('fav-card--linked');
+                card.onclick = function() { window.open(item.link, '_blank'); };
+            }
+            const sub = item.description || '';
+            card.innerHTML = '<div class="fav-card-img"></div><div class="fav-card-info"><div class="fav-card-title">' + item.name + '</div>' + (sub ? '<div class="fav-card-sub">' + sub + '</div>' : '') + '</div>';
+        }
+        track.appendChild(card);
+    });
+    carousels[id] = { pos: 0, n: items.length };
+    applyOrder(id);
+}
+
+function applyOrder(id) {
+    const c = carousels[id];
+    Array.from(document.querySelectorAll('#carousel-' + id + ' .carousel-track > .fav-card')).forEach(function(card, i) {
+        const rel = (i - c.pos + c.n) % c.n;
+        card.style.order = rel < 3 ? rel : '';
+        card.style.display = rel < 3 ? '' : 'none';
+    });
+}
+
+function carouselMove(id, dir) {
+    const c = carousels[id];
+    c.pos = (c.pos + dir + c.n) % c.n;
+    const track = document.querySelector('#carousel-' + id + ' .carousel-track');
+    track.style.opacity = '0';
+    setTimeout(function() { applyOrder(id); track.style.opacity = '1'; }, 150);
 }

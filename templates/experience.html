@@ -4,31 +4,76 @@
 
 <h1 class="center_text">Experience Timeline</h1>
 
-<div class="timeline">
-    {% for item in timeline %}
-    <div class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
+<div class="experience-layout">
 
-        {% if item.link %}
-        <a href="{{ item.link }}" target="_blank" class="timeline-link">
-        {% endif %}
-            <div class="card timeline-card {{ 'clickable' if item.link else '' }}">
-                
-                <h3>{{ item.title }}</h3>
-                <p><strong>{{ item.year }}</strong> • {{ item.category }}</p>
-                <p>{{ item.description }}</p>
+    <!-- sidebar outline -->
+    <aside class="timeline-nav">
+        {% set ns = namespace(last_year=None) %}
+        {% for item in timeline %}
+            {% if item.year != ns.last_year %}
+            <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-year-link">{{ item.year }}</a>
+            {% set ns.last_year = item.year %}
+            {% endif %}
+            <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-link">{{ item.title }}</a>
+        {% endfor %}
+    </aside>
 
-                {% if item.image %}
-                <img src="{{ url_for('static', filename='images/' + item.image) }}" class="timeline-image">
-                {% endif %}
+    <!-- timeline -->
+    <div class="timeline">
+        {% for item in timeline %}
+        <div id="timeline-item-{{ loop.index }}" class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
 
-            </div>
-        {% if item.link %}
-        </a>
-        {% endif %}
+            {% if item.link %}
+            <a href="{{ item.link }}" target="_blank" class="timeline-link">
+            {% endif %}
+                <div class="timeline-card">
+
+                    <h3>{{ item.title }}</h3>
+                    <p><strong>{{ item.year }}</strong> • {{ item.category }}</p>
+                    <p>{{ item.description }}</p>
+
+                    {% if item.image %}
+                    <img src="{{ url_for('static', filename='images/' + item.image) }}" class="timeline-image">
+                    {% endif %}
+
+                </div>
+            {% if item.link %}
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+
 </div>
 
-<br> <!-- extra line at bottom of main before footer -->
+<br>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const navLinks = document.querySelectorAll('.timeline-nav-link');
+    const items = document.querySelectorAll('.timeline-item');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                const active = document.querySelector(`.timeline-nav-link[href="#${entry.target.id}"]`);
+                if (active) active.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-10% 0px -60% 0px' });
+
+    items.forEach(item => observer.observe(item));
+
+    // when scrolled to bottom, force last item active
+    window.addEventListener('scroll', () => {
+        const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 50;
+        if (atBottom) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            navLinks[navLinks.length - 1].classList.add('active');
+        }
+    });
+</script>
 {% endblock %}
