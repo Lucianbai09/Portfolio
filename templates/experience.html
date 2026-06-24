@@ -8,14 +8,30 @@
 
     <!-- sidebar outline -->
     <aside class="timeline-nav">
-        {% set ns = namespace(last_year=None) %}
-        {% for item in timeline %}
-            {% if item.year != ns.last_year %}
-            <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-year-link">{{ item.year }}</a>
-            {% set ns.last_year = item.year %}
-            {% endif %}
-            <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-link">{{ item.title }}</a>
-        {% endfor %}
+        <div class="timeline-nav-tabs">
+            <button class="timeline-tab-btn active" data-tab="timeline" onclick="switchTab('timeline')">Timeline</button>
+            <button class="timeline-tab-btn" data-tab="present" onclick="switchTab('present')">Present</button>
+        </div>
+
+        <div id="tab-timeline">
+            {% set ns = namespace(last_year=None) %}
+            {% for item in timeline %}
+                {% set start_year = item.year.split('-')[0] %}
+                {% if start_year != ns.last_year %}
+                <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-year-link">{{ start_year }}</a>
+                {% set ns.last_year = start_year %}
+                {% endif %}
+                <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-link" data-target="timeline-item-{{ loop.index }}">{{ item.title }}</a>
+            {% endfor %}
+        </div>
+
+        <div id="tab-present" style="display:none">
+            {% for item in timeline %}
+                {% if 'present' in item.year %}
+                <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-link" data-target="timeline-item-{{ loop.index }}">{{ item.title }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
     </aside>
 
     <!-- timeline -->
@@ -30,7 +46,7 @@
 
                     <h3>{{ item.title }}</h3>
                     <p><strong>{{ item.year }}</strong> • {{ item.category }}</p>
-                    <p>{{ item.description }}</p>
+                    <p class="timeline-desc">{{ item.description }}</p>
 
                     {% if item.image %}
                     <img src="{{ url_for('static', filename='images/' + item.image) }}" class="timeline-image">
@@ -52,28 +68,49 @@
 
 {% block scripts %}
 <script>
-    const navLinks = document.querySelectorAll('.timeline-nav-link');
+    const allNavLinks = document.querySelectorAll('.timeline-nav-link');
     const items = document.querySelectorAll('.timeline-item');
+
+    function setActive(itemId) {
+        allNavLinks.forEach(link => link.classList.remove('active'));
+        document.querySelectorAll(`.timeline-nav-link[data-target="${itemId}"]`).forEach(link => {
+            link.classList.add('active');
+        });
+    }
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                const active = document.querySelector(`.timeline-nav-link[href="#${entry.target.id}"]`);
-                if (active) active.classList.add('active');
+                setActive(entry.target.id);
             }
         });
     }, { rootMargin: '-10% 0px -60% 0px' });
 
     items.forEach(item => observer.observe(item));
 
-    // when scrolled to bottom, force last item active
     window.addEventListener('scroll', () => {
         const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 50;
-        if (atBottom) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            navLinks[navLinks.length - 1].classList.add('active');
+        if (atBottom && items.length) {
+            setActive(items[items.length - 1].id);
         }
     });
+
+    // Hover sync across both tabs
+    allNavLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            document.querySelectorAll(`.timeline-nav-link[data-target="${link.dataset.target}"]`).forEach(l => l.classList.add('hover-highlight'));
+        });
+        link.addEventListener('mouseleave', () => {
+            document.querySelectorAll(`.timeline-nav-link[data-target="${link.dataset.target}"]`).forEach(l => l.classList.remove('hover-highlight'));
+        });
+    });
+
+    function switchTab(tab) {
+        document.getElementById('tab-timeline').style.display = tab === 'timeline' ? '' : 'none';
+        document.getElementById('tab-present').style.display = tab === 'present' ? '' : 'none';
+        document.querySelectorAll('.timeline-tab-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.tab === tab);
+        });
+    }
 </script>
 {% endblock %}

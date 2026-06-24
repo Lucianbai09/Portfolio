@@ -24,7 +24,7 @@ timeline = [
         "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
     },
     {
-        "year": "2025-2026",
+        "year": "2025-present",
         "title": "Founded Berczy Ultimate",
         "category": "Experience",
         "description": """Co-founded Berczy Ultimate, a local youth ultimate frisbee club hosting weekly drop in meetings
@@ -58,7 +58,7 @@ timeline = [
         "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
     },
     {
-        "year": "2026",
+        "year": "2026-present",
         "title": "Built Flask Portfolio Website",
         "category": "Project",
         "description": "Created a personal portfolio website using Flask (Jinja2), JavaScript, HTML and CSS.",
@@ -66,7 +66,7 @@ timeline = [
         "link": "http://127.0.0.1:5000/"
     },
     {
-        "year": "2026",
+        "year": "2026-present",
         "title": "Nokia Future Tech Summer Internship",
         "category": "Experience",
         "description": "",
@@ -74,6 +74,8 @@ timeline = [
         "link": "https://www.nokia.com/careers/our-locations/canada/students-and-graduates/future-tech-summer-internship/"
     },
 ]
+
+timeline.sort(key=lambda x: int(x['year'].split('-')[0]))
 
 favourites = {
     "artists": [
