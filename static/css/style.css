@@ -393,8 +393,8 @@ button:hover {
 
 .timeline-desc {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -404,7 +404,8 @@ button:hover {
     height: 160px;
     object-fit: contain;
     margin-top: auto;
-    flex-shrink: 0;
+    flex-shrink: 3;
+    min-height: 80px;
     border-radius: 10px;
     background-color: #eee;
 }

@@ -91,17 +91,38 @@
     window.addEventListener('scroll', () => {
         const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 50;
         if (atBottom && items.length) {
-            setActive(items[items.length - 1].id);
+            // Find the last item actually visible in the viewport
+            let lastVisible = null;
+            items.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < window.innerHeight) lastVisible = item;
+            });
+            if (lastVisible) setActive(lastVisible.id);
         }
     });
 
-    // Hover sync across both tabs
     allNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(link.dataset.target);
+            if (target) {
+                setActive(link.dataset.target);
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
         link.addEventListener('mouseenter', () => {
             document.querySelectorAll(`.timeline-nav-link[data-target="${link.dataset.target}"]`).forEach(l => l.classList.add('hover-highlight'));
         });
         link.addEventListener('mouseleave', () => {
             document.querySelectorAll(`.timeline-nav-link[data-target="${link.dataset.target}"]`).forEach(l => l.classList.remove('hover-highlight'));
+        });
+    });
+
+    document.querySelectorAll('.timeline-nav-year-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(link.getAttribute('href').slice(1));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     });
 
