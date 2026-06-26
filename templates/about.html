@@ -1,7 +1,7 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-<h1 class="center_text">Favourites & Hobbies</h1>
+<h1 class="center_text">About Me</h1>
 
 <section class="fav-section">
     <h2 class="fav-section-title">Hobbies</h2>
@@ -13,7 +13,7 @@
 </section>
 
 <section class="fav-section">
-    <h2 class="fav-section-title">Food</h2>
+    <h2 class="fav-section-title">Go-To Order</h2>
     <div class="fav-carousel" id="carousel-food">
         <button class="carousel-btn" onclick="carouselMove('food',-1)">&#8249;</button>
         <div class="carousel-track"></div>
@@ -54,5 +54,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 {% endblock %}
-
-

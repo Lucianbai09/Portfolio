@@ -149,9 +149,9 @@ favourites = {
     ],
 
     "food": [
-        {"name": "Pizza", "image": None},
-        {"name": "Pasta", "image": None},
-        {"name": "Ramen", "image": None},
+        {"name": "Coco",        "description": "Bubble Gaga",            "image": None},
+        {"name": "Pizza Nova",  "description": "Deluxe",                 "image": None},
+        {"name": "McDonald's",  "description": "$5 McDouble Value Meal", "image": None},
     ],
 }
 

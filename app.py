@@ -11,9 +11,9 @@ def index():
 def experience():
     return render_template("experience.html", timeline=timeline)
 
-@app.route("/favourites")
-def favorites_page():
-    return render_template("favourites.html", favourites=favourites, hobbies=hobbies)
+@app.route("/about")
+def about_page():
+    return render_template("about.html", favourites=favourites, hobbies=hobbies)
 
 if __name__ == "__main__":
     app.run(debug=True)
