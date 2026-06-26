@@ -29,7 +29,7 @@ timeline = [
         "category": "Project",
         "description": "My first coding project, a GUI tool that types out pasted text with custom delays and breaks. Built with Python and Tkinter.",
         "image": "mooc2024.webp",
-        "link": "https://github.com/KingBobSkibidi/autotyper"
+        "link": "https://github.com/Lucianbai09/autotyper"
     },
     {
         "year": "2025",
@@ -45,7 +45,7 @@ timeline = [
         "category": "Project",
         "description": "My first web app, a Webtoon chapter and status tracking platform. Built with Flask (Jinja2), SQLite, HTML, and CSS.",
         "image": "mooc2024.webp",
-        "link": "https://github.com/KingBobSkibidi/Webtoon-App"
+        "link": "https://github.com/Lucianbai09/Webtoon-App"
     },
     {
         "year": "2025",
@@ -69,7 +69,7 @@ timeline = [
         "category": "Achievement",
         "description": "Lead coder (C++) and builder for Trubotics, my school's VEX V5 team, #1 public school in Ontario at provincials",
         "image": "mooc2024.webp",
-        "link": "https://github.com/KingBobSkibidi/Robotics-2025-2026"
+        "link": "https://github.com/Lucianbai09/Robotics-2025-2026"
     },
     {
         "year": "2026",
