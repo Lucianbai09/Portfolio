@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
 <script>if(localStorage.getItem('theme')==='dark')document.body.classList.add('dark');</script>
 
 {% set socials = [

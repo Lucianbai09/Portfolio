@@ -52,7 +52,7 @@ timeline = [
         "title": "Go-Kart Couch",
         "category": "Project",
         "description": "First physical project, built a motorized couch go-kart, combination of physical engineering and programming.",
-        "image": "mooc2024.webp",
+        "image": "couch1.webp",
         "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
     },
     {
@@ -82,6 +82,7 @@ timeline = [
     {
         "year": "2026",
         "title": "Locally",
+        "id": "locally",
         "category": "Project",
         "description": "Web app to help users discover and support local businesses. Built with Flask (Jinja2), PostgreSQL, HTML, and CSS.",
         "image": "locally.webp",
@@ -100,7 +101,7 @@ timeline = [
         "title": "Varsity Frisbee Team",
         "category": "Experience",
         "description": "Member of Pierre Elliott Trudeau High School's Varsity Ultimate Frisbee Team.",
-        "image": "mooc2024.webp",
+        "image": "frisbee2.webp",
         "link": "https://www.instagram.com/p/DZq9zrrlslc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
     },
     {
@@ -118,6 +119,15 @@ timeline = [
         "description": "",
         "image": "nokia.webp",
         "link": "https://www.nokia.com/careers/our-locations/canada/students-and-graduates/future-tech-summer-internship/"
+    },
+    {
+        "year": "2026",
+        "title": "Water Turret",
+        "id": "water-turret",
+        "category": "Project",
+        "description": "Building an autonomous water turret that detects things using AI. Built with Raspberry Pi 5, OpenCV, and computer vision.",
+        "image": "mooc2024.webp",
+        "link": ""
     },
 ]
 
@@ -146,7 +156,8 @@ favourites = {
 }
 
 hobbies = [
-    {"name": "Chess",            "description": "I'm rly a thinker", "image": None, "link": "https://www.chess.com"},
-    {"name": "Ultimate Frisbee", "description": "Best sport ever",         "image": None, "link": None},
-    {"name": "Piano",            "description": "This my shit",  "image": None, "link": None},
+    {"name": "Chess",            "description": "I'm rly a thinker", "image": "chess.webp", "link": "https://www.chess.com"},
+    {"name": "Ultimate Frisbee", "description": "Best sport ever",         "image": "frisbee1.webp", "link": None},
+    {"name": "Piano",            "description": "This my shit",  "image": "piano.webp", "link": None},
+    {"name": "Guitar",            "description": "This kinda my shit",  "image": "guitar2.webp", "link": None},
 ]

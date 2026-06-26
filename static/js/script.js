@@ -24,7 +24,8 @@ function initCarousel(id, items) {
                 card.onclick = function() { window.open(item.link, '_blank'); };
             }
             const sub = item.description || '';
-            card.innerHTML = '<div class="fav-card-img"></div><div class="fav-card-info"><div class="fav-card-title">' + item.name + '</div>' + (sub ? '<div class="fav-card-sub">' + sub + '</div>' : '') + '</div>';
+            const imgHtml = item.image ? '<img src="/static/images/' + item.image + '" alt="' + item.name + '">' : '';
+            card.innerHTML = '<div class="fav-card-img">' + imgHtml + '</div><div class="fav-card-info"><div class="fav-card-title">' + item.name + '</div>' + (sub ? '<div class="fav-card-sub">' + sub + '</div>' : '') + '</div>';
         }
         track.appendChild(card);
     });

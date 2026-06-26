@@ -16,19 +16,21 @@
         <div id="tab-timeline">
             {% set ns = namespace(last_year=None) %}
             {% for item in timeline %}
+                {% set item_id = item.id if item.id else 'timeline-item-' ~ loop.index %}
                 {% set start_year = item.year.split('-')[0] %}
                 {% if start_year != ns.last_year %}
-                <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-year-link">{{ start_year }}</a>
+                <a href="#{{ item_id }}" class="timeline-nav-year-link">{{ start_year }}</a>
                 {% set ns.last_year = start_year %}
                 {% endif %}
-                <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-link" data-target="timeline-item-{{ loop.index }}">{{ item.title }}</a>
+                <a href="#{{ item_id }}" class="timeline-nav-link" data-target="{{ item_id }}">{{ item.title }}</a>
             {% endfor %}
         </div>
 
         <div id="tab-present" style="display:none">
             {% for item in timeline %}
+                {% set item_id = item.id if item.id else 'timeline-item-' ~ loop.index %}
                 {% if 'present' in item.year %}
-                <a href="#timeline-item-{{ loop.index }}" class="timeline-nav-link" data-target="timeline-item-{{ loop.index }}">{{ item.title }}</a>
+                <a href="#{{ item_id }}" class="timeline-nav-link" data-target="{{ item_id }}">{{ item.title }}</a>
                 {% endif %}
             {% endfor %}
         </div>
@@ -37,7 +39,8 @@
     <!-- timeline -->
     <div class="timeline">
         {% for item in timeline %}
-        <div id="timeline-item-{{ loop.index }}" class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
+        {% set item_id = item.id if item.id else 'timeline-item-' ~ loop.index %}
+        <div id="{{ item_id }}" class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
 
             {% if item.link %}
             <a href="{{ item.link }}" target="_blank" class="timeline-link">
