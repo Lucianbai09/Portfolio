@@ -51,6 +51,7 @@
     </nav>
 
     <!-- page content -->
+    <div class="page-content">
     <main class="page">
         {% block content %}{% endblock %}
     </main>
@@ -68,6 +69,8 @@
         </div>
         <p class="footer-copy">© 2026 Lucian Bai</p>
     </footer>
+
+    </div><!-- end page-content -->
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {% block scripts %}{% endblock %}

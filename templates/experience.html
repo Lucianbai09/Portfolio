@@ -42,9 +42,6 @@
         {% set item_id = item.id if item.id else 'timeline-item-' ~ loop.index %}
         <div id="{{ item_id }}" class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
 
-            {% if item.link %}
-            <a href="{{ item.link }}" target="_blank" class="timeline-link">
-            {% endif %}
                 <div class="timeline-card">
 
                     <h3>{{ item.title }}</h3>
@@ -52,13 +49,16 @@
                     <p class="timeline-desc">{{ item.description }}</p>
 
                     {% if item.image %}
+                    {% if item.link %}
+                    <a href="{{ item.link }}" target="_blank" class="timeline-image-link" onclick="event.stopPropagation()">
+                        <img src="{{ url_for('static', filename='images/' + item.image) }}" class="timeline-image">
+                    </a>
+                    {% else %}
                     <img src="{{ url_for('static', filename='images/' + item.image) }}" class="timeline-image">
+                    {% endif %}
                     {% endif %}
 
                 </div>
-            {% if item.link %}
-            </a>
-            {% endif %}
         </div>
         {% endfor %}
     </div>
@@ -136,5 +136,23 @@
             btn.classList.toggle('active', btn.dataset.tab === tab);
         });
     }
+
+    // Box expand/collapse animation
+    document.querySelectorAll('.timeline-card').forEach(card => {
+        let clickOpen = false;
+
+        card.addEventListener('mouseenter', () => {
+            if (!clickOpen) card.classList.add('box-open');
+        });
+
+        card.addEventListener('mouseleave', () => {
+            if (!clickOpen) card.classList.remove('box-open');
+        });
+
+        card.addEventListener('click', () => {
+            clickOpen = !clickOpen;
+            card.classList.toggle('box-open', clickOpen);
+        });
+    });
 </script>
 {% endblock %}

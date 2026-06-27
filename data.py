@@ -36,7 +36,7 @@ timeline = [
         "title": "Pedalheads Bike Instructor",
         "category": "Experience",
         "description": "Summer bike camp instructor, taught 50+ children ages 4-10 how to ride bikes with over 150+ hours of instruction.",
-        "image": "pedalheads.webp",
+        "image": "pedalheadslogo.webp",
         "link": "https://pedalheads.com/en/bike?utm_term=pedalheads&utm_campaign=G_Search_Branded_Bike_CAN_ON_All&utm_source=google&utm_medium=cpc&hsa_acc=3891153763&hsa_cam=23502517136&hsa_grp=190593523605&hsa_ad=794630995400&hsa_src=g&hsa_tgt=kwd-491131322832&hsa_kw=pedalheads&hsa_mt=b&hsa_net=adwords&hsa_ver=3&gad_source=1&gad_campaignid=23502517136&gbraid=0AAAAADnnjxyemrKAkZR98UibY4vEAdsRU&gclid=CjwKCAjwgO7RBhBKEiwAZNP85oWj7Jw5PAvQEhWpSljYDyFy2osv0sWtNJoIy7H_hmQyeXJqO89XuxoCwQ4QAvD_BwE"
     },
     {
