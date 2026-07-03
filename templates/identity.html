@@ -3,41 +3,16 @@
 {% block content %}
 <h1 class="center_text">Identity</h1>
 
+{% for id, title in [("hobbies", "Hobbies"), ("food", "Go-To Order"), ("artists", "Artists"), ("music", "Music")] %}
 <section class="fav-section">
-    <h2 class="fav-section-title">Hobbies</h2>
-    <div class="fav-carousel" id="carousel-hobbies">
-        <button class="carousel-btn" onclick="carouselMove('hobbies',-1)">&#8249;</button>
+    <h2 class="fav-section-title">{{ title }}</h2>
+    <div class="fav-carousel" id="carousel-{{ id }}">
+        <button class="carousel-btn" onclick="carouselMove('{{ id }}',-1)">&#8249;</button>
         <div class="carousel-track"></div>
-        <button class="carousel-btn" onclick="carouselMove('hobbies',1)">&#8250;</button>
+        <button class="carousel-btn" onclick="carouselMove('{{ id }}',1)">&#8250;</button>
     </div>
 </section>
-
-<section class="fav-section">
-    <h2 class="fav-section-title">Go-To Order</h2>
-    <div class="fav-carousel" id="carousel-food">
-        <button class="carousel-btn" onclick="carouselMove('food',-1)">&#8249;</button>
-        <div class="carousel-track"></div>
-        <button class="carousel-btn" onclick="carouselMove('food',1)">&#8250;</button>
-    </div>
-</section>
-
-<section class="fav-section">
-    <h2 class="fav-section-title">Artists</h2>
-    <div class="fav-carousel" id="carousel-artists">
-        <button class="carousel-btn" onclick="carouselMove('artists',-1)">&#8249;</button>
-        <div class="carousel-track"></div>
-        <button class="carousel-btn" onclick="carouselMove('artists',1)">&#8250;</button>
-    </div>
-</section>
-
-<section class="fav-section">
-    <h2 class="fav-section-title">Music</h2>
-    <div class="fav-carousel" id="carousel-music">
-        <button class="carousel-btn" onclick="carouselMove('music',-1)">&#8249;</button>
-        <div class="carousel-track"></div>
-        <button class="carousel-btn" onclick="carouselMove('music',1)">&#8250;</button>
-    </div>
-</section>
+{% endfor %}
 
 {% endblock %}
 
@@ -49,8 +24,6 @@ const FAVES = {
     artists: {{ favourites.artists | tojson }},
     music:   {{ favourites.music   | tojson }}
 };
-document.addEventListener('DOMContentLoaded', function() {
-    Object.entries(FAVES).forEach(function(e) { initCarousel(e[0], e[1]); });
-});
+Object.entries(FAVES).forEach(function(entry) { initCarousel(entry[0], entry[1]); });
 </script>
 {% endblock %}

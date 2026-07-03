@@ -37,7 +37,7 @@ timeline = [
         "category": "Experience",
         "description": "Summer bike camp instructor, taught 50+ children ages 4-10 how to ride bikes with over 150+ hours of instruction.",
         "image": "pedalheadslogo.webp",
-        "link": "https://pedalheads.com/en/bike?utm_term=pedalheads&utm_campaign=G_Search_Branded_Bike_CAN_ON_All&utm_source=google&utm_medium=cpc&hsa_acc=3891153763&hsa_cam=23502517136&hsa_grp=190593523605&hsa_ad=794630995400&hsa_src=g&hsa_tgt=kwd-491131322832&hsa_kw=pedalheads&hsa_mt=b&hsa_net=adwords&hsa_ver=3&gad_source=1&gad_campaignid=23502517136&gbraid=0AAAAADnnjxyemrKAkZR98UibY4vEAdsRU&gclid=CjwKCAjwgO7RBhBKEiwAZNP85oWj7Jw5PAvQEhWpSljYDyFy2osv0sWtNJoIy7H_hmQyeXJqO89XuxoCwQ4QAvD_BwE"
+        "link": "https://pedalheads.com/en/bike"
     },
     {
         "year": "2025",
@@ -53,15 +53,15 @@ timeline = [
         "category": "Project",
         "description": "First physical project, built a motorized couch go-kart, combination of physical engineering and programming.",
         "image": "couch1.webp",
-        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        "link": "https://www.instagram.com/berczy_ultimate"
     },
     {
         "year": "2025-present",
         "title": "Founded Berczy Ultimate",
         "category": "Experience",
-        "description": "Co-founded Berczy Ultimate. Sponsered by Ultimate Canada and the WFDF.",
+        "description": "Co-founded Berczy Ultimate. Sponsored by Ultimate Canada and the WFDF.",
         "image": "mooc2024.webp",
-        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        "link": "https://www.instagram.com/berczy_ultimate"
     },
     {
         "year": "2025-2026",
@@ -94,7 +94,7 @@ timeline = [
         "category": "Experience",
         "description": "Hosted a hands on STEM workshop for 25+ children in collaboration with Minds In Motion STEM INC.",
         "image": "workshop.webp",
-        "link": "https://www.instagram.com/berczy_ultimate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        "link": "https://www.instagram.com/berczy_ultimate"
     },
     {
         "year": "2026",
@@ -102,7 +102,7 @@ timeline = [
         "category": "Experience",
         "description": "Member of Pierre Elliott Trudeau High School's Varsity Ultimate Frisbee Team.",
         "image": "frisbee2.webp",
-        "link": "https://www.instagram.com/p/DZq9zrrlslc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+        "link": "https://www.instagram.com/p/DZq9zrrlslc/"
     },
     {
         "year": "2026-present",
@@ -110,13 +110,13 @@ timeline = [
         "category": "Project",
         "description": "Created a personal portfolio website using Flask (Jinja2), JavaScript, HTML and CSS.",
         "image": "mooc2024.webp",
-        "link": "http://127.0.0.1:5000/"
+        "link": "https://github.com/Lucianbai09/Portfolio"
     },
     {
         "year": "2026-present",
         "title": "Nokia Future Tech Summer Internship",
         "category": "Experience",
-        "description": "",
+        "description": "Selected for Nokia's Future Tech summer internship program.",
         "image": "nokia.webp",
         "link": "https://www.nokia.com/careers/our-locations/canada/students-and-graduates/future-tech-summer-internship/"
     },

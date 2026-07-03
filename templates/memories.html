@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block body_class %}memories-page{% endblock %}
+
 {% block content %}
 
 <h1 class="center_text">Memories</h1>
@@ -51,10 +53,10 @@
                     {% if item.image %}
                     {% if item.link %}
                     <a href="{{ item.link }}" target="_blank" class="timeline-image-link" onclick="event.stopPropagation()">
-                        <img src="{{ url_for('static', filename='images/' + item.image) }}" class="timeline-image">
+                        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image">
                     </a>
                     {% else %}
-                    <img src="{{ url_for('static', filename='images/' + item.image) }}" class="timeline-image">
+                    <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image">
                     {% endif %}
                     {% endif %}
 

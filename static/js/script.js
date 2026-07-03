@@ -35,12 +35,18 @@ function initCarousel(id, items) {
 
 function applyOrder(id) {
     const c = carousels[id];
+    // 1 card on mobile, 3 on desktop (must match the 768 breakpoint in style.css)
+    const visible = window.innerWidth <= 768 ? 1 : 3;
     Array.from(document.querySelectorAll('#carousel-' + id + ' .carousel-track > .fav-card')).forEach(function(card, i) {
         const rel = (i - c.pos + c.n) % c.n;
-        card.style.order = rel < 3 ? rel : '';
-        card.style.display = rel < 3 ? '' : 'none';
+        card.style.order = rel < visible ? rel : '';
+        card.style.display = rel < visible ? '' : 'none';
     });
 }
+
+window.addEventListener('resize', function() {
+    Object.keys(carousels).forEach(applyOrder);
+});
 
 function carouselMove(id, dir) {
     const c = carousels[id];

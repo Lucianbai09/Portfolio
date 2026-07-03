@@ -1,3 +1,10 @@
+/* Excalidraw's hand-drawn font (Virgil), self-hosted */
+@font-face {
+    font-family: 'Virgil';
+    src: url('/static/fonts/Virgil.woff2') format('woff2');
+    font-display: swap;
+}
+
 /* variables */
 :root {
     --bg: #f7f7f7;
@@ -16,16 +23,15 @@ html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Virgil', 'Segoe Print', 'Comic Sans MS', cursive;
 }
 
 /* body */
 body {
     font-size: 18px;
     padding: 0;
-    min-width: 600px;
     background-color: var(--bg);
-    background-image: url('/static/images/banner3.svg');
+    background-image: url('/static/svgs/banner3.svg');
     background-size: contain;
     background-repeat: repeat-y;
     background-position: center top;
@@ -369,11 +375,11 @@ button:hover {
 }
 
 .timeline-item.left::before {
-    right: -6px;
+    right: -5px;
 }
 
 .timeline-item.right::before {
-    left: -6px;
+    left: -5px;
 }
 
 .timeline-item .timeline-card {
@@ -389,8 +395,9 @@ button:hover {
     position: relative;
     cursor: pointer;
 
-    border: 2px solid var(--border-color);
-    background-color: var(--card-bg);
+    border: 2px solid #846358;
+    background-color: #d2bab0;
+    color: #222;
     padding: 10px 14px;
     border-radius: 12px;
 
@@ -605,4 +612,140 @@ button:hover {
     --card-bg: #1a1a1a;
     --text: #f7f7f7;
     --border-color: #f7f7f7;
+}
+
+/* memories page theme (brown) — scoped by body class, other pages untouched */
+.memories-page {
+    --bg: #eedbcf;
+}
+
+.dark.memories-page {
+    --bg: #695044;
+}
+
+.memories-page .navbar,
+.memories-page .footer,
+.memories-page .timeline-nav,
+.memories-page .center_text {
+    background-color: #d2bab0;
+    border-color: #846358;
+    color: #222;
+}
+
+.memories-page .navbar button {
+    background-color: transparent;
+    border-color: #846358;
+    color: #222;
+}
+
+.memories-page .navbar button:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+.memories-page .timeline-tab-btn {
+    border-color: #846358;
+    color: #222;
+}
+
+.memories-page .timeline-tab-btn.active,
+.memories-page .timeline-tab-btn.active:hover {
+    background-color: #846358;
+    color: #d2bab0;
+}
+
+.memories-page .timeline-nav-link:hover,
+.memories-page .timeline-nav-link.active,
+.memories-page .timeline-nav-link.hover-highlight {
+    border-left-color: #846358;
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* mobile (must match the 768 breakpoint in script.js) */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    .page {
+        padding: 0 12px;
+    }
+
+    /* navbar stacks vertically */
+    .navbar {
+        width: calc(100% - 16px);
+        top: 8px;
+    }
+
+    .navbar-inner {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 14px;
+    }
+
+    .nav-left {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-links {
+        gap: 14px;
+        font-size: 15px;
+    }
+
+    .nav-links button {
+        padding: 6px 12px;
+    }
+
+    /* home */
+    .hero {
+        padding: 50px 16px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .home-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* memories: hide sidebar, single-column timeline with the line on the left */
+    .timeline-nav {
+        display: none;
+    }
+
+    .timeline::before {
+        left: 12px;
+    }
+
+    .timeline-item,
+    .timeline-item.right {
+        width: 100%;
+        left: 0;
+    }
+
+    .timeline-item {
+        padding: 10px 4px 10px 32px;
+    }
+
+    .timeline-item.left {
+        text-align: left;
+    }
+
+    .timeline-item.left::before,
+    .timeline-item.right::before {
+        left: 7px;
+        right: auto;
+    }
+
+    .timeline-item.left .timeline-card,
+    .timeline-item.right .timeline-card {
+        transform-origin: top left;
+    }
+
+    /* identity: single carousel card, centered */
+    .carousel-track {
+        justify-content: center;
+    }
 }
