@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1 class="center_text">Memories</h1>
+<h1 class="center_text" id="memories-header" title="Open/close all boxes">Memories</h1>
 
 <div class="experience-layout">
 
@@ -46,6 +46,17 @@
 
                 <div class="timeline-card">
 
+                    <div class="timeline-card-box" aria-hidden="true"></div>
+
+                    <div class="timeline-card-label" aria-hidden="true">
+                        <div class="label-title"><span>{{ item.title }}</span></div>
+                        <div class="label-tape"></div>
+                        <div class="label-meta">
+                            <div class="label-year">{{ item.year }}</div>
+                            <div class="label-category">{{ item.category }}</div>
+                        </div>
+                    </div>
+
                     <h3>{{ item.title }}</h3>
                     <p><strong>{{ item.year }}</strong> • {{ item.category }}</p>
                     <p class="timeline-desc">{{ item.description }}</p>
@@ -56,7 +67,9 @@
                         <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image">
                     </a>
                     {% else %}
-                    <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image">
+                    <div class="timeline-image-link">
+                        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image">
+                    </div>
                     {% endif %}
                     {% endif %}
 
@@ -169,22 +182,82 @@
         window.addEventListener('resize', updateTop);
     })();
 
-    // Box expand/collapse animation
+    // Box expand/collapse animation — drawn frames stepped in sync with the
+    // card's 0.315s steps(3) scale transition (105ms per step).
+    // Frames come in 3 recolored sets matching the theme (brown = originals).
+    const BOX_FRAME_BASE = "{{ url_for('static', filename='svgs/') }}";
+    function frameUrl(f) {
+        const suffix = document.body.classList.contains('dark') ? '-dark'
+                     : document.body.classList.contains('brown') ? '' : '-light';
+        return BOX_FRAME_BASE + 'Boxframe' + f + suffix + '.svg';
+    }
+    ['', '-light', '-dark'].forEach(suffix => {
+        for (let f = 1; f <= 4; f++) {
+            new Image().src = BOX_FRAME_BASE + 'Boxframe' + f + suffix + '.svg';
+        }
+    });
+    const BOX_STEP_MS = 105;
+
+    // repaint visible frames when the theme changes
+    new MutationObserver(() => {
+        document.querySelectorAll('.timeline-card.box-art').forEach(card => {
+            const overlay = card.querySelector('.timeline-card-box');
+            const f = parseInt(card.dataset.frame || '1', 10);
+            overlay.style.backgroundImage = `url('${frameUrl(f)}')`;
+        });
+    }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
     document.querySelectorAll('.timeline-card').forEach(card => {
+        const overlay = card.querySelector('.timeline-card-box');
         let clickOpen = false;
+        let visualOpen = false;
+        let timers = [];
 
-        card.addEventListener('mouseenter', () => {
-            if (!clickOpen) card.classList.add('box-open');
-        });
+        function setFrame(f) {
+            overlay.style.backgroundImage = `url('${frameUrl(f)}')`;
+            card.dataset.frame = f;
+            card.classList.toggle('lid-closed', f === 1);
+        }
 
-        card.addEventListener('mouseleave', () => {
-            if (!clickOpen) card.classList.remove('box-open');
-        });
+        function animate(opening) {
+            if (visualOpen === opening) return;
+            visualOpen = opening;
+            timers.forEach(clearTimeout);
+            timers = [];
+            card.classList.toggle('box-open', opening);
+            card.classList.add('box-art');
+            // 0 = animation done, hide the drawn box and show real card
+            const seq = opening ? [2, 3, 4, 0] : [4, 3, 2, 1];
+            seq.forEach((f, i) => {
+                timers.push(setTimeout(() => {
+                    if (f === 0) card.classList.remove('box-art');
+                    else setFrame(f);
+                }, i * BOX_STEP_MS));
+            });
+        }
 
+        setFrame(1);
+        card.classList.add('box-art');
+
+        card.addEventListener('mouseenter', () => { if (!clickOpen) animate(true); });
+        card.addEventListener('mouseleave', () => { if (!clickOpen) animate(false); });
         card.addEventListener('click', () => {
             clickOpen = !clickOpen;
-            card.classList.toggle('box-open', clickOpen);
+            animate(clickOpen);
         });
+
+        // for the open/close-all header toggle
+        card._box = {
+            isOpen: () => visualOpen,
+            setOpen: (open) => { clickOpen = open; animate(open); },
+        };
+    });
+
+    // clicking the Memories header opens all boxes (or closes all if none closed)
+    document.getElementById('memories-header').addEventListener('click', () => {
+        const cards = Array.from(document.querySelectorAll('.timeline-card'));
+        const anyClosed = cards.some(card => !card._box.isOpen());
+        cards.forEach(card => card._box.setOpen(anyClosed));
     });
 </script>
 {% endblock %}

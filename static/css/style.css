@@ -5,12 +5,14 @@
     font-display: swap;
 }
 
-/* variables */
+/* variables — three color modes (light / brown / dark) override these */
 :root {
     --bg: #f7f7f7;
     --card-bg: #fafafa;
     --text: #222;
     --border-color: black;
+    --img-bg: #eee;
+    --btn-hover: #f0f0f0;
 }
 
 html {
@@ -56,7 +58,7 @@ a:active {
     width: fit-content;
     margin: 20px auto;
     text-align: center;
-    background-color: var(--bg);
+    background-color: var(--card-bg);
     border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 8px 24px;
@@ -68,7 +70,7 @@ a:active {
     margin: 10px auto 30px;
     border: 2px solid var(--border-color);
     border-radius: 14px;
-    background-color: var(--bg);
+    background-color: var(--card-bg);
 
     position: sticky;
     top: 10px;
@@ -146,7 +148,7 @@ button {
 
 button:hover {
     transform: scale(1.01);
-    background-color: #f0f0f0;
+    background-color: var(--btn-hover);
 }
 
 .bubbly_button {
@@ -228,7 +230,7 @@ button:hover {
     height: 180px;
     object-fit: cover;
     border-radius: 8px;
-    background-color: #eee;
+    background-color: var(--img-bg);
 }
 
 /* experience page layout */
@@ -255,7 +257,7 @@ button:hover {
     padding: 10px 6px;
     max-height: calc(100vh - 140px);
     overflow-y: auto;
-    background-color: var(--bg);
+    background-color: var(--card-bg);
     border: 2px solid var(--border-color);
     border-radius: 12px;
 }
@@ -327,7 +329,7 @@ button:hover {
 .timeline-nav-link.hover-highlight {
     opacity: 1;
     border-left-color: var(--border-color);
-    background-color: var(--card-bg);
+    background-color: var(--btn-hover);
 }
 
 /* timeline */
@@ -387,21 +389,21 @@ button:hover {
     flex-direction: column;
     gap: 4px;
 
-    /* box animation — frame sizes (scale × 300px): 120 / 165 / 210 / 255 / 300px
-       SVG lid heights match these: lid-1=120, lid-2=165, lid-3=210, lid-4=255 */
+    /* box animation — card scales 0.4→1 in 3 steps; JS swaps the 4 drawn
+       Boxframe images (static/svgs) every 105ms in sync, see memories.html */
     height: 300px;
     transform: scale(0.4);
     margin-bottom: -180px;
     position: relative;
     cursor: pointer;
 
-    border: 2px solid #846358;
-    background-color: #d2bab0;
-    color: #222;
+    border: 2px solid var(--border-color);
+    background-color: var(--card-bg);
+    color: var(--text);
     padding: 10px 14px;
-    border-radius: 12px;
+    border-radius: 30px; /* matches the drawn box corner radius (~32 canvas units) */
 
-    transition: transform 0.3s steps(4, end), margin-bottom 0.3s steps(4, end);
+    transition: transform 0.315s steps(3, end), margin-bottom 0.315s steps(3, end);
 }
 
 .timeline-item .timeline-card.box-open {
@@ -418,7 +420,137 @@ button:hover {
     transform-origin: top left;
 }
 
+/* drawn box overlay — covers the card while closed/animating (z:2),
+   frame image is swapped by JS in sync with the scale steps */
+.timeline-card-box {
+    display: none;
+    position: absolute;
+    inset: -2px; /* cover the card border too */
+    z-index: 2;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
 
+.timeline-card.box-art .timeline-card-box {
+    display: block;
+}
+
+/* while the drawing is showing, hide the card border (drawing has its own) */
+.timeline-card.box-art {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* only drop the card background once fully closed — during the opening/closing
+   frames the solid background stays behind the drawing */
+.timeline-card.lid-closed {
+    background-color: transparent;
+}
+
+/* lid label — on top of the drawn box (z:3). Title rides the TOP lid,
+   year+category ride the BOTTOM lid; each half squishes with its lid strip.
+   Sizes are ~2.2x normal because it's mostly seen at scale(0.4) */
+.timeline-card-label {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: 28px; /* card radius minus border */
+    opacity: 0;
+}
+
+.timeline-card.box-art .timeline-card-label {
+    opacity: 1;
+}
+
+.label-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    transform-origin: top center;
+
+    display: flex;
+    align-items: center;
+    padding: 20px 34px;
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 1.25;
+}
+
+.label-title > span {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.label-tape {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 40px;
+    transform: translateY(-50%);
+    /* drawn tape can go here later */
+}
+
+.label-meta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    transform-origin: bottom center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 34px;
+}
+
+/* each lid half is 160 canvas units; lid strips are 140/100/60 per frame */
+.timeline-card[data-frame="2"] .label-title,
+.timeline-card[data-frame="2"] .label-meta {
+    transform: scaleY(0.875);
+}
+
+.timeline-card[data-frame="3"] .label-title,
+.timeline-card[data-frame="3"] .label-meta {
+    transform: scaleY(0.625);
+}
+
+.timeline-card[data-frame="4"] .label-title,
+.timeline-card[data-frame="4"] .label-meta {
+    transform: scaleY(0.375);
+}
+
+.label-year {
+    font-size: 30px;
+    font-weight: bold;
+    opacity: 0.85;
+}
+
+.label-category {
+    font-size: 24px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* left cards: label text hugs the edge closest to the timeline line */
+.timeline-item.left .timeline-card-label {
+    text-align: right;
+}
+
+.timeline-item.left .label-title {
+    justify-content: flex-end;
+}
 
 .timeline-item .timeline-card p {
     line-height: 1.2;
@@ -457,7 +589,7 @@ button:hover {
     height: 100%;
     object-fit: contain;
     border-radius: 10px;
-    background-color: #eee;
+    background-color: var(--img-bg);
     display: block;
 }
 
@@ -467,7 +599,7 @@ button:hover {
     padding: 15px 30px 12px;
     margin: 20px auto;
     width: fit-content;
-    background-color: var(--bg);
+    background-color: var(--card-bg);
     border: 2px solid var(--border-color);
     border-radius: 12px;
 }
@@ -502,7 +634,7 @@ button:hover {
     width: fit-content;
     margin: 0 auto 16px;
     text-align: center;
-    background-color: var(--bg);
+    background-color: var(--card-bg);
     border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 6px 20px;
@@ -573,7 +705,7 @@ button:hover {
 .fav-card-img {
     width: 100%;
     flex: 1;
-    background-color: #eee;
+    background-color: var(--img-bg);
     overflow: hidden;
 }
 
@@ -606,58 +738,41 @@ button:hover {
     text-overflow: ellipsis;
 }
 
-/* dark mode */
+/* color modes — Theme button cycles light → brown → dark (all pages) */
+.brown {
+    --bg: #eedbcf;
+    --card-bg: #d2bab0;
+    --text: #222;
+    --border-color: #846358;
+    --img-bg: #e6d3c7;
+    --btn-hover: rgba(255, 255, 255, 0.35);
+}
+
 .dark {
-    --bg: #111;
-    --card-bg: #1a1a1a;
+    --bg: #000;
+    --card-bg: #0a0a0a;
     --text: #f7f7f7;
     --border-color: #f7f7f7;
+    --img-bg: #1a1a1a;
+    --btn-hover: #1f1f1f;
 }
 
-/* memories page theme (brown) — scoped by body class, other pages untouched */
-.memories-page {
-    --bg: #eedbcf;
-}
-
-.dark.memories-page {
-    --bg: #695044;
-}
-
-.memories-page .navbar,
-.memories-page .footer,
-.memories-page .timeline-nav,
+/* memories header doubles as the open/close-all toggle */
 .memories-page .center_text {
-    background-color: #d2bab0;
-    border-color: #846358;
-    color: #222;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s;
 }
 
-.memories-page .navbar button {
-    background-color: transparent;
-    border-color: #846358;
-    color: #222;
+.memories-page .center_text:hover {
+    /* tint layered over the solid card bg, not replacing it */
+    background-image: linear-gradient(var(--btn-hover), var(--btn-hover));
 }
 
-.memories-page .navbar button:hover {
-    background-color: rgba(255, 255, 255, 0.35);
-}
-
-.memories-page .timeline-tab-btn {
-    border-color: #846358;
-    color: #222;
-}
-
-.memories-page .timeline-tab-btn.active,
-.memories-page .timeline-tab-btn.active:hover {
-    background-color: #846358;
-    color: #d2bab0;
-}
-
-.memories-page .timeline-nav-link:hover,
-.memories-page .timeline-nav-link.active,
-.memories-page .timeline-nav-link.hover-highlight {
-    border-left-color: #846358;
-    background-color: rgba(255, 255, 255, 0.35);
+/* darker timeline line + dots in brown mode */
+.brown .timeline::before,
+.brown .timeline-item::before {
+    background: #5a4238;
 }
 
 /* mobile (must match the 768 breakpoint in script.js) */

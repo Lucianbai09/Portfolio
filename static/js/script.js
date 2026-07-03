@@ -1,6 +1,12 @@
+// theme cycles light → brown → dark
 function toggleTheme() {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "");
+    const modes = ['', 'brown', 'dark'];
+    const cur = document.body.classList.contains('dark') ? 'dark'
+            : document.body.classList.contains('brown') ? 'brown' : '';
+    const next = modes[(modes.indexOf(cur) + 1) % modes.length];
+    document.body.classList.remove('brown', 'dark');
+    if (next) document.body.classList.add(next);
+    localStorage.setItem('theme', next);
 }
 
 // favourites carousel — all cards pre-rendered, iframes never destroyed
