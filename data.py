@@ -158,13 +158,20 @@ favourites = {
     {"name": "Tory Lanez", "link": "https://open.spotify.com/artist/2jku7tDXc6XoB6MO2hFuqg", "embed": "https://open.spotify.com/embed/artist/2jku7tDXc6XoB6MO2hFuqg"},
     {"name": "Brent Faiyaz", "link": "https://open.spotify.com/artist/3tlXnStJ1fFhdScmQeLpuG", "embed": "https://open.spotify.com/embed/artist/3tlXnStJ1fFhdScmQeLpuG"},
     {"name": "SZA", "link": "https://open.spotify.com/artist/7tYKF4w9nC0nq9CsPZTHyP", "embed": "https://open.spotify.com/embed/artist/7tYKF4w9nC0nq9CsPZTHyP"},
+    {"name": "Bryson Tiller", "link": "https://open.spotify.com/artist/2EMAnMvWE2eb56ToJVfCWs", "embed": "https://open.spotify.com/embed/artist/2EMAnMvWE2eb56ToJVfCWs"},
+    {"name": "Ariana Grande", "link": "https://open.spotify.com/artist/66CXWjxzNUsdJxJ2JdwvnR", "embed": "https://open.spotify.com/embed/artist/66CXWjxzNUsdJxJ2JdwvnR"},
+    {"name": "Chase Atlantic", "link": "https://open.spotify.com/artist/7cYEt1pqMgXJdq00hAwVpT", "embed": "https://open.spotify.com/embed/artist/7cYEt1pqMgXJdq00hAwVpT"},
     ],
 
     "music": [
-        {"name": "Love Yourself", "artist": "Justin Bieber", "link": "https://open.spotify.com/track/50kpGaPAhYJ3sGmk6vplg0", "embed": "https://open.spotify.com/embed/track/50kpGaPAhYJ3sGmk6vplg0"},
-        {"name": "Say It",        "artist": "Tory Lanez",    "link": "https://open.spotify.com/track/2Gyc6e2cLxA5hoX1NOvYnU", "embed": "https://open.spotify.com/embed/track/2Gyc6e2cLxA5hoX1NOvYnU"},
-        {"name": "Clouded",       "artist": "Brent Faiyaz",  "link": "https://open.spotify.com/track/2J6OF7CkpdQGSfm1wdclqn", "embed": "https://open.spotify.com/embed/track/2J6OF7CkpdQGSfm1wdclqn"},
-        {"name": "Kill Bill",     "artist": "SZA",           "link": "https://open.spotify.com/track/1Qrg8KqiBpW07V7PNxwwwL", "embed": "https://open.spotify.com/embed/track/1Qrg8KqiBpW07V7PNxwwwL"},
+        {"name": "10 F*CKS - Tory Lanez (ft. Mansa)",            "link": "https://open.spotify.com/track/7DHNcoR73yUYCSn6PqBgkH", "embed": "https://open.spotify.com/embed/track/7DHNcoR73yUYCSn6PqBgkH"},
+        {"name": "Hate That I Made You Love Me - Ariana Grande", "link": "https://open.spotify.com/track/20jbSiX29FDX4oQxBXyUEi", "embed": "https://open.spotify.com/embed/track/20jbSiX29FDX4oQxBXyUEi"},
+        {"name": "Paper Soldier - Brent Faiyaz (ft. Joony)",     "link": "https://open.spotify.com/track/0ReoK9isNvJmI7nV2iJcNR", "embed": "https://open.spotify.com/embed/track/0ReoK9isNvJmI7nV2iJcNR"},
+        {"name": "JUST A DREAM - Yel",                           "link": "https://open.spotify.com/track/2e6soczRbcYbU4gzPN3xwk", "embed": "https://open.spotify.com/embed/track/2e6soczRbcYbU4gzPN3xwk"},
+        {"name": "烂片剧情 - LBI利比",                            "link": "https://open.spotify.com/track/488IBZgAqHQmUDjg9kTQYG", "embed": "https://open.spotify.com/embed/track/488IBZgAqHQmUDjg9kTQYG"},
+        {"name": "Angels Speak - Justin Bieber, Poo Bear",       "link": "https://open.spotify.com/track/5G99lkpldkHJx6o1Z37ts7", "embed": "https://open.spotify.com/embed/track/5G99lkpldkHJx6o1Z37ts7"},
+        {"name": "NOBLE - F3miii (ft. The Kid LAROI)",           "link": "https://open.spotify.com/track/00meonIF1VYLe1eTcx3w9e", "embed": "https://open.spotify.com/embed/track/00meonIF1VYLe1eTcx3w9e"},
+        {"name": "Low - SZA",                                    "link": "https://open.spotify.com/track/2GAhgAjOhEmItWLfgisyOn", "embed": "https://open.spotify.com/embed/track/2GAhgAjOhEmItWLfgisyOn"},
     ],
 
     "food": [

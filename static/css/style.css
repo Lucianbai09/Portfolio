@@ -995,18 +995,56 @@ button:hover {
     background-color: var(--border-color);
 }
 
-/* stacked mobile navbar is ~3:1 — too far from the drawn 9.5:1 shape,
-   so fall back to the plain border there */
+/* home page */
+.hero.sketch-box,
+.home-card.sketch-box {
+    position: relative;
+}
+
+.hero.sketch-box {
+    --sketch-inset: -10px;
+}
+
+.home-card.sketch-box {
+    --sketch-inset: -8px;
+}
+
+button.sketch-box {
+    position: relative;
+    --sketch-inset: -4px;
+}
+
+/* hover tint inside the drawn shape instead of the rectangular element */
+button.sketch-box:hover {
+    background-color: transparent;
+}
+
+button.sketch-box:hover::before {
+    background-image: linear-gradient(var(--btn-hover), var(--btn-hover));
+}
+
+/* mobile: stacked navbar (~3:1) and hero (~1.2:1) stretch their wide drawings
+   too far — fall back to plain borders there */
 @media (max-width: 768px) {
-    .navbar.sketch-box {
+    .navbar.sketch-box,
+    .hero.sketch-box {
         border: 2px solid var(--border-color);
-        border-radius: 14px;
         background-color: var(--card-bg);
+    }
+
+    .navbar.sketch-box {
+        border-radius: 14px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
+    .hero.sketch-box {
+        border-radius: 12px;
+    }
+
     .navbar.sketch-box::before,
-    .navbar.sketch-box::after {
+    .navbar.sketch-box::after,
+    .hero.sketch-box::before,
+    .hero.sketch-box::after {
         display: none;
     }
 }

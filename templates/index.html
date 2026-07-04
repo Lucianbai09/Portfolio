@@ -2,9 +2,11 @@
 
 {% block body_class %}home-page{% endblock %}
 
+{% macro sketch(box) %}style="--sketch-stroke: url('/static/svgs/{{ box }}.svg'); --sketch-fill: url('/static/svgs/{{ box }}-fill.svg')"{% endmacro %}
+
 {% block content %}
 
-<div class="hero">
+<div class="hero sketch-box" {{ sketch('Herobox') }}>
     <h1>Lucian Bai</h1>
     <p class="hero-sub">Grade 11 · Pierre Elliott Trudeau High School · Ontario</p>
     <p class="hero-desc">
@@ -15,21 +17,21 @@
 
 <div class="home-cards-grid">
 
-    <div class="home-card">
+    <div class="home-card sketch-box" {{ sketch('Homebox1') }}>
         <img src="{{ url_for('static', filename='images/nokia.webp') }}" alt="Memories" class="home-card-img">
         <h2>Memories</h2>
         <p>Timeline of my resume</p>
         <a href="/memories">
-            <button class="bubbly_button">View Memories</button>
+            <button class="bubbly_button sketch-box" {{ sketch('Memoriesbutton') }}>View Memories</button>
         </a>
     </div>
 
-    <div class="home-card">
+    <div class="home-card sketch-box" {{ sketch('Homebox2') }}>
         <img src="{{ url_for('static', filename='images/nokia.webp') }}" alt="Identity" class="home-card-img">
         <h2>Identity</h2>
         <p>Things that make me me</p>
         <a href="/identity">
-            <button class="bubbly_button">View Identity</button>
+            <button class="bubbly_button sketch-box" {{ sketch('Identitybutton') }}>View Identity</button>
         </a>
     </div>
 </div>
