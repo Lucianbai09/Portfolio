@@ -33,7 +33,7 @@ body {
     font-size: 18px;
     padding: 0;
     background-color: var(--bg);
-    background-image: url('/static/svgs/banner3.svg');
+    background-image: url('/static/svgs/Banner3.svg');
     background-size: contain;
     background-repeat: repeat-y;
     background-position: center top;
@@ -54,12 +54,25 @@ a:active {
     text-decoration: none;
 }
 
+/* every boxed element shares the card look */
+.center_text,
+.navbar,
+button,
+.hero,
+.home-card,
+.timeline-nav,
+.footer,
+.fav-section-title,
+.fav-card,
+.timeline-item .timeline-card {
+    border: 2px solid var(--border-color);
+    background-color: var(--card-bg);
+}
+
 .center_text {
     width: fit-content;
     margin: 20px auto;
     text-align: center;
-    background-color: var(--card-bg);
-    border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 8px 24px;
 }
@@ -68,9 +81,7 @@ a:active {
 .navbar {
     width: fit-content;
     margin: 10px auto 30px;
-    border: 2px solid var(--border-color);
     border-radius: 14px;
-    background-color: var(--card-bg);
 
     position: sticky;
     top: 10px;
@@ -137,10 +148,8 @@ a:active {
 
 /* buttons */
 button {
-    background-color: var(--card-bg);
     color: var(--text);
     padding: 10px 22px;
-    border: 2px solid var(--border-color);
     border-radius: 12px;
     cursor: pointer;
     transition: 0.1s;
@@ -163,17 +172,12 @@ button:hover {
     padding: 0 20px;
 }
 
-
-
 /* hero */
 .hero {
     padding: 90px 20px;
     text-align: center;
-    border: 2px solid var(--border-color);
     border-radius: 12px;
-    background-color: var(--card-bg);
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin: 30px 0;
 }
 
 .hero h1 {
@@ -209,9 +213,7 @@ button:hover {
 }
 
 .home-card {
-    border: 2px solid var(--border-color);
     border-radius: 12px;
-    background-color: var(--card-bg);
     padding: 16px;
 
     display: flex;
@@ -257,8 +259,6 @@ button:hover {
     padding: 10px 6px;
     max-height: calc(100vh - 140px);
     overflow-y: auto;
-    background-color: var(--card-bg);
-    border: 2px solid var(--border-color);
     border-radius: 12px;
 }
 
@@ -397,8 +397,6 @@ button:hover {
     position: relative;
     cursor: pointer;
 
-    border: 2px solid var(--border-color);
-    background-color: var(--card-bg);
     color: var(--text);
     padding: 10px 14px;
     border-radius: 30px; /* matches the drawn box corner radius (~32 canvas units) */
@@ -568,7 +566,8 @@ button:hover {
     overflow: hidden;
 }
 
-.timeline-desc {
+.timeline-item .timeline-card p.timeline-desc {
+    font-size: 15px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
@@ -599,8 +598,6 @@ button:hover {
     padding: 15px 30px 12px;
     margin: 20px auto;
     width: fit-content;
-    background-color: var(--card-bg);
-    border: 2px solid var(--border-color);
     border-radius: 12px;
 }
 
@@ -634,8 +631,6 @@ button:hover {
     width: fit-content;
     margin: 0 auto 16px;
     text-align: center;
-    background-color: var(--card-bg);
-    border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 6px 20px;
 }
@@ -673,9 +668,7 @@ button:hover {
     flex: 0 1 280px;
     min-width: 0;
     height: 352px;
-    border: 2px solid var(--border-color);
     border-radius: 12px;
-    background-color: var(--card-bg);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -862,5 +855,158 @@ button:hover {
     /* identity: single carousel card, centered */
     .carousel-track {
         justify-content: center;
+    }
+}
+
+/* ---- hand-drawn boxes ----
+   Each drawn Excalidraw stroke gets a generated companion (*-fill.svg) tracing
+   its exact interior. Both are used as CSS masks on pseudo-elements, colored by
+   the theme variables: fill -> --card-bg, stroke -> --border-color. */
+/* no position here — it would kill the sticky navbar/sidebar;
+   static elements opt into relative in their own rules */
+.sketch-box {
+    isolation: isolate;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.sketch-box::before,
+.sketch-box::after {
+    content: "";
+    position: absolute;
+    inset: var(--sketch-inset, -6px);
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+/* interior fill (exact shape of the drawing) */
+.sketch-box::before {
+    background-color: var(--card-bg);
+    -webkit-mask-image: var(--sketch-fill);
+    mask-image: var(--sketch-fill);
+}
+
+/* the drawn stroke on top */
+.sketch-box::after {
+    background-color: var(--border-color);
+    -webkit-mask-image: var(--sketch-stroke);
+    mask-image: var(--sketch-stroke);
+}
+
+.navbar.sketch-box {
+    --sketch-stroke: url('/static/svgs/Navbarbox.svg');
+    --sketch-fill: url('/static/svgs/Navbarbox-fill.svg');
+    --sketch-inset: -8px -14px;
+}
+
+/* shadow follows the drawn shape */
+.navbar.sketch-box::before {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+}
+
+.footer.sketch-box {
+    position: relative;
+    --sketch-stroke: url('/static/svgs/Footerbox.svg');
+    --sketch-fill: url('/static/svgs/Footerbox-fill.svg');
+    --sketch-inset: -8px -12px;
+}
+
+/* heading boxes — identity page headings get their shapes inline
+   in the template; extra vertical inset fits the squarer drawings */
+.center_text.sketch-box,
+.fav-section-title.sketch-box {
+    position: relative;
+}
+
+.fav-section-title.sketch-box {
+    --sketch-inset: -8px -5px;
+}
+
+.center_text.sketch-box {
+    --sketch-inset: -14px -6px;
+}
+
+.memories-page .center_text.sketch-box {
+    --sketch-stroke: url('/static/svgs/Memoriesbox.svg');
+    --sketch-fill: url('/static/svgs/Memoriesbox-fill.svg');
+    --sketch-inset: -12px -6px;
+}
+
+/* hover tint goes on the masked fill layer, not the rectangular element */
+.memories-page .center_text.sketch-box:hover {
+    background-image: none;
+}
+
+.memories-page .center_text.sketch-box:hover::before {
+    background-image: linear-gradient(var(--btn-hover), var(--btn-hover));
+}
+
+/* sidebar — scrolling moves to the tab lists so the drawn box stays put
+   and the negative-inset pseudos aren't clipped */
+.timeline-nav.sketch-box {
+    --sketch-stroke: url('/static/svgs/Sidebarbox1.svg');
+    --sketch-fill: url('/static/svgs/Sidebarbox1-fill.svg');
+    --sketch-inset: -8px;
+    overflow-y: visible;
+    padding: 12px 10px;
+}
+
+.timeline-nav.sketch-box.present-tab {
+    --sketch-stroke: url('/static/svgs/Sidebarbox2.svg');
+    --sketch-fill: url('/static/svgs/Sidebarbox2-fill.svg');
+    --sketch-inset: -8px;
+}
+
+.timeline-nav.sketch-box #tab-timeline,
+.timeline-nav.sketch-box #tab-present {
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.timeline-tab-btn.sketch-box {
+    /* load-bearing: anchors the drawn box to the button, not the sidebar */
+    position: relative;
+    --sketch-inset: -3px;
+}
+
+.timeline-tab-btn.sketch-box[data-tab="timeline"] {
+    --sketch-stroke: url('/static/svgs/Tabsbox1.svg');
+    --sketch-fill: url('/static/svgs/Tabsbox1-fill.svg');
+}
+
+.timeline-tab-btn.sketch-box[data-tab="present"] {
+    --sketch-stroke: url('/static/svgs/Tabsbox2.svg');
+    --sketch-fill: url('/static/svgs/Tabsbox2-fill.svg');
+}
+
+/* active tab: invert inside the drawn shape (fill goes dark, text goes light) */
+.timeline-tab-btn.sketch-box.active,
+.timeline-tab-btn.sketch-box.active:hover {
+    background-color: transparent;
+    color: var(--bg);
+}
+
+.timeline-tab-btn.sketch-box.active::before {
+    background-color: var(--border-color);
+}
+
+/* stacked mobile navbar is ~3:1 — too far from the drawn 9.5:1 shape,
+   so fall back to the plain border there */
+@media (max-width: 768px) {
+    .navbar.sketch-box {
+        border: 2px solid var(--border-color);
+        border-radius: 14px;
+        background-color: var(--card-bg);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.sketch-box::before,
+    .navbar.sketch-box::after {
+        display: none;
     }
 }

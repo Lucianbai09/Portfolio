@@ -10,3 +10,8 @@ python app.py
 ```
 
 Then open http://127.0.0.1:5000 in your browser.
+
+## Deploy
+
+Hosted on [Vercel](https://vercel.com) — `vercel.json` routes `/static/*` to the CDN
+and everything else to the Flask app. Push to `main` to deploy.

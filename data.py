@@ -3,7 +3,7 @@ timeline = [
         "year": "2024-2025",
         "title": "Started Programming",
         "category": "Experience",
-        "description": "Began self-learning Python online through the MOOC 2024 online course.",
+        "description": "Began self-learning Python online through University of Helsinki's 'Python Programming MOOC 2024' course.",
         "image": "mooc2024.webp",
         "link": "https://programming-24.mooc.fi/"
     },
@@ -19,10 +19,20 @@ timeline = [
         "year": "2024",
         "title": "DECA Regional Champion",
         "category": "Competition",
-        "description": "Top 10 roleplay, Top 10 MC, Top 3 overall at DECA Regionals.",
+        "description": "Top 10 roleplay, Top 10 MC, Top 3 overall at DECA Regionals in Principles of Business Management and Administration.",
         "image": "mooc2024.webp",
         "link": "https://deca.ca/v2/about-regionals/"
     },
+
+    {
+        "year": "2025",
+        "title": "CPR Certification",
+        "category": "Achievement",
+        "description": "Obtained Red Cross Standard First Aid & CPR/AED Level C certification through Heart2Heart First Aid/CPR.",
+        "image": "mooc2024.webp",
+        "link": "https://heart2heartcpr.com/locations/markham/"
+    },
+
     {
         "year": "2025",
         "title": "Autotyper",
@@ -35,7 +45,7 @@ timeline = [
         "year": "2025",
         "title": "Pedalheads Bike Instructor",
         "category": "Experience",
-        "description": "Summer bike camp instructor, taught 50+ children ages 4-10 how to ride bikes with over 150+ hours of instruction.",
+        "description": "Taught 50+ children ages 4-10 how to ride bikes with over 150+ hours of instruction.",
         "image": "pedalheadslogo.webp",
         "link": "https://pedalheads.com/en/bike"
     },
@@ -57,7 +67,7 @@ timeline = [
     },
     {
         "year": "2025-present",
-        "title": "Founded Berczy Ultimate",
+        "title": "Berczy Ultimate",
         "category": "Experience",
         "description": "Co-founded Berczy Ultimate. Sponsored by Ultimate Canada and the WFDF.",
         "image": "mooc2024.webp",
@@ -65,9 +75,9 @@ timeline = [
     },
     {
         "year": "2025-2026",
-        "title": "Robotics Provincial Top 16",
-        "category": "Achievement",
-        "description": "Lead coder (C++) and builder for Trubotics, my school's VEX V5 team, #1 public school in Ontario at provincials",
+        "title": "Vex V5 Robotics",
+        "category": "Competition",
+        "description": "Lead coder (C++) and builder for PETHS school team, Trubotics, quarter finalists at Ontario provincials",
         "image": "mooc2024.webp",
         "link": "https://github.com/Lucianbai09/Robotics-2025-2026"
     },
@@ -106,7 +116,7 @@ timeline = [
     },
     {
         "year": "2026-present",
-        "title": "Built Flask Portfolio Website",
+        "title": "Flask Portfolio Website",
         "category": "Project",
         "description": "Created a personal portfolio website using Flask (Jinja2), JavaScript, HTML and CSS.",
         "image": "mooc2024.webp",
@@ -128,6 +138,15 @@ timeline = [
         "description": "Building an autonomous water turret that detects things using AI. Built with Raspberry Pi 5, OpenCV, and computer vision.",
         "image": "mooc2024.webp",
         "link": ""
+    },
+
+    {
+        "year": "2026-present",
+        "title": "CS Club Exec",
+        "category": "Experience",
+        "description": "General executive for Pierre Elliot Trudeau High School's CS Club",
+        "image": "mooc2024.webp",
+        "link": "https://www.instagram.com/petcsclub/" 
     },
 ]
 

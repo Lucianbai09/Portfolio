@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="center_text">Identity</h1>
+{% macro sketch(box) %}style="--sketch-stroke: url('/static/svgs/{{ box }}.svg'); --sketch-fill: url('/static/svgs/{{ box }}-fill.svg')"{% endmacro %}
 
-{% for id, title in [("hobbies", "Hobbies"), ("food", "Go-To Order"), ("artists", "Artists"), ("music", "Music")] %}
+<h1 class="center_text sketch-box" {{ sketch('Identitybox') }}>Identity</h1>
+
+{% for id, title, box in [("hobbies", "Hobbies", "Hobbiesbox"), ("food", "Go-To Order", "Gotoorderbox"), ("artists", "Fav Artists", "Favartistsbox"), ("music", "Current Vibes", "Currentvibesbox")] %}
 <section class="fav-section">
-    <h2 class="fav-section-title">{{ title }}</h2>
+    <h2 class="fav-section-title sketch-box" {{ sketch(box) }}>{{ title }}</h2>
     <div class="fav-carousel" id="carousel-{{ id }}">
         <button class="carousel-btn" onclick="carouselMove('{{ id }}',-1)">&#8249;</button>
         <div class="carousel-track"></div>

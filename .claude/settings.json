@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($edge = \"C:\\\\Program Files \\(x86\\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe\"; if \\(-not \\(Test-Path $edge\\)\\) { $edge = \"C:\\\\Program Files\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe\" }; $sp = \"C:\\\\Users\\\\lucia\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-lucia-OneDrive-Documents-GitHub-Portfolio\\\\e9d04c0d-16c4-4738-b257-cddcf5706316\\\\scratchpad\"; & $edge --headless=new --disable-gpu --hide-scrollbars --screenshot=\"$sp\\\\check-home.png\" --window-size=1280,900 \"http://127.0.0.1:5000/\" 2>$null | Out-Null; Start-Sleep -Seconds 2; & $edge --headless=new --disable-gpu --hide-scrollbars --screenshot=\"$sp\\\\check-memories.png\" --window-size=1280,900 \"http://127.0.0.1:5000/memories\" 2>$null | Out-Null; Start-Sleep -Seconds 2; & $edge --headless=new --disable-gpu --hide-scrollbars --screenshot=\"$sp\\\\check-identity.png\" --window-size=1280,900 \"http://127.0.0.1:5000/identity\" 2>$null | Out-Null; Start-Sleep -Seconds 2; \"done\")"
+    ]
+  }
+}

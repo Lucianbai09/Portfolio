@@ -20,7 +20,7 @@
 ] %}
 
     <!-- navbar -->
-    <nav class="navbar">
+    <nav class="navbar sketch-box">
         <div class="navbar-inner">
 
             <div class="nav-left">
@@ -56,7 +56,7 @@
     </main>
 
     <!-- footer -->
-    <footer class="footer">
+    <footer class="footer sketch-box">
         <div class="footer-icons">
             {% for href, label, path in socials %}
             <a href="{{ href }}" target="_blank" class="footer-icon" aria-label="{{ label }}">
@@ -66,7 +66,7 @@
             </a>
             {% endfor %}
         </div>
-        <p class="footer-copy">© 2026 Lucian Bai</p>
+        <p class="footer-copy">Made possible with Flask, Excalidraw, Vercel &amp; Claude Code.</p>
     </footer>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

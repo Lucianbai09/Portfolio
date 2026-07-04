@@ -4,15 +4,15 @@
 
 {% block content %}
 
-<h1 class="center_text" id="memories-header" title="Open/close all boxes">Memories</h1>
+<h1 class="center_text sketch-box" id="memories-header" title="Open/close all boxes">Memories</h1>
 
 <div class="experience-layout">
 
     <!-- sidebar outline -->
-    <aside class="timeline-nav">
+    <aside class="timeline-nav sketch-box">
         <div class="timeline-nav-tabs">
-            <button class="timeline-tab-btn active" data-tab="timeline" onclick="switchTab('timeline')">Timeline</button>
-            <button class="timeline-tab-btn" data-tab="present" onclick="switchTab('present')">Present</button>
+            <button class="timeline-tab-btn sketch-box active" data-tab="timeline" onclick="switchTab('timeline')">Timeline</button>
+            <button class="timeline-tab-btn sketch-box" data-tab="present" onclick="switchTab('present')">Present</button>
         </div>
 
         <div id="tab-timeline">
@@ -170,6 +170,9 @@
         document.querySelectorAll('.timeline-tab-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.tab === tab);
         });
+        // swap the drawn sidebar box (tall vs squarish) and recenter for the new height
+        document.querySelector('.timeline-nav').classList.toggle('present-tab', tab === 'present');
+        window.dispatchEvent(new Event('resize'));
     }
 
     // Keep sidebar vertically centered in viewport
