@@ -829,6 +829,30 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
         grid-template-columns: 1fr;
     }
 
+    /* shrink card contents so the card keeps the drawn box's ~1.35:1 shape —
+       stretched taller, the stroke wobble dips into the image and button */
+    .home-card {
+        padding: 16px 14px 20px;
+        gap: 6px;
+    }
+
+    .home-card-img {
+        height: 140px;
+    }
+
+    .home-card h2 {
+        font-size: 20px;
+    }
+
+    .home-card p {
+        font-size: 14px;
+    }
+
+    .home-card .bubbly_button {
+        font-size: 15px;
+        padding: 8px 16px;
+    }
+
     /* memories: hide sidebar, single-column timeline with the line on the left */
     .timeline-nav {
         display: none;
@@ -868,9 +892,38 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
         justify-content: center;
     }
 
-    /* smaller doodles so they clear the card text */
-    .card-doodle {
-        width: 45%;
+    /* smaller doodles, pulled up off the bottom stroke */
+    .memory-doodle {
+        width: 42%;
+        right: 14px;
+        bottom: 18px;
+    }
+
+    .identity-doodle {
+        width: 34%;
+        right: 28px;
+        bottom: 20px;
+    }
+
+    /* footer: smaller icons + copy keep it one line, matching the wide
+       drawn shape so the stroke clears the icons at the top */
+    .footer {
+        padding: 14px 12px 10px;
+        max-width: calc(100% - 24px);
+    }
+
+    .footer-icons {
+        gap: 18px;
+        margin-bottom: 4px;
+    }
+
+    .footer-icons svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .footer-copy {
+        font-size: 11px;
     }
 }
 
