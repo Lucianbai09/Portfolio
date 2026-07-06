@@ -775,6 +775,10 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
     background: #5a4238;
 }
 
+.brown .card-doodle {
+    background-color: black;
+}
+
 /* mobile (must match the 768 breakpoint in script.js) */
 @media (max-width: 768px) {
     body {
