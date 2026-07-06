@@ -28,10 +28,8 @@ html {
     font-family: 'Virgil', 'Segoe Print', 'Comic Sans MS', cursive;
 }
 
-/* body */
 body {
     font-size: 18px;
-    padding: 0;
     background-color: var(--bg);
     background-image: url('/static/svgs/Banner3.svg');
     background-size: contain;
@@ -41,15 +39,11 @@ body {
     transition: 0.2s ease;
 }
 
-/* links and text */
 a, p {
     line-height: 150%;
 }
 
-a,
-a:visited,
-a:hover,
-a:active {
+a {
     color: inherit;
     text-decoration: none;
 }
@@ -86,8 +80,6 @@ button,
     position: sticky;
     top: 10px;
     z-index: 1000;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-inner {
@@ -198,8 +190,7 @@ button:hover {
     margin: 0 auto;
 }
 
-.hero-desc a,
-.hero-desc a:visited {
+.hero-desc a {
     color: #4a9eff;
     text-decoration: underline;
 }
@@ -235,6 +226,34 @@ button:hover {
     background-color: var(--img-bg);
 }
 
+/* doodles in the cards' bottom-right pockets — alpha masks colored by the
+theme, same trick as the drawn borders. Anchored bottom-right, so a wider
+   cap grows them left/up on big screens */
+.card-doodle {
+    position: absolute;
+    background-color: var(--border-color);
+    -webkit-mask: var(--doodle) no-repeat center / contain;
+    mask: var(--doodle) no-repeat center / contain;
+    pointer-events: none;
+}
+
+.memory-doodle {
+    --doodle: url('/static/svgs/Memoriesdrawing.svg');
+    right: 16px;
+    bottom: 15px;
+    width: min(58%, 230px);
+    aspect-ratio: 797 / 422;
+}
+
+/* floats more centered in its pocket than the memories one */
+.identity-doodle {
+    --doodle: url('/static/svgs/Identitydrawing.svg');
+    right: 40px;
+    bottom: 20px;
+    width: min(45%, 170px);
+    aspect-ratio: 585 / 360;
+}
+
 /* experience page layout */
 .experience-layout {
     display: flex;
@@ -248,7 +267,8 @@ button:hover {
     margin: 0;
 }
 
-/* sidebar outline */
+/* sidebar outline — scrolling lives in the tab lists so the drawn box
+   stays put and the negative-inset pseudos aren't clipped */
 .timeline-nav {
     position: sticky;
     width: 160px;
@@ -256,10 +276,15 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 10px 6px;
+    padding: 12px 10px;
     max-height: calc(100vh - 140px);
-    overflow-y: auto;
     border-radius: 12px;
+}
+
+#tab-timeline,
+#tab-present {
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .timeline-nav-tabs {
@@ -479,22 +504,14 @@ button:hover {
     line-height: 1.25;
 }
 
-.label-title > span {
+.label-title > span,
+.timeline-card h3,
+.timeline-card .timeline-desc {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-.label-tape {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 40px;
-    transform: translateY(-50%);
-    /* drawn tape can go here later */
 }
 
 .label-meta {
@@ -550,29 +567,19 @@ button:hover {
     justify-content: flex-end;
 }
 
-.timeline-item .timeline-card p {
+.timeline-card p {
     line-height: 1.2;
     font-size: 16px;
-    margin: 0;
 }
 
-.timeline-item .timeline-card h3 {
-    margin: 0;
+.timeline-card h3 {
     line-height: 1.15;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 }
 
-.timeline-item .timeline-card p.timeline-desc {
+.timeline-card .timeline-desc {
     font-size: 15px;
-    display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 }
 
 .timeline-image-link {
@@ -856,6 +863,11 @@ button:hover {
     .carousel-track {
         justify-content: center;
     }
+
+    /* smaller doodles so they clear the card text */
+    .card-doodle {
+        width: 45%;
+    }
 }
 
 /* ---- hand-drawn boxes ----
@@ -916,18 +928,14 @@ button:hover {
     --sketch-inset: -8px -12px;
 }
 
-/* heading boxes — identity page headings get their shapes inline
-   in the template; extra vertical inset fits the squarer drawings */
-.center_text.sketch-box,
+/* heading boxes — identity headings get their shapes inline in the template */
 .fav-section-title.sketch-box {
     position: relative;
-}
-
-.fav-section-title.sketch-box {
     --sketch-inset: -8px -5px;
 }
 
 .center_text.sketch-box {
+    position: relative;
     --sketch-inset: -14px -6px;
 }
 
@@ -946,26 +954,16 @@ button:hover {
     background-image: linear-gradient(var(--btn-hover), var(--btn-hover));
 }
 
-/* sidebar — scrolling moves to the tab lists so the drawn box stays put
-   and the negative-inset pseudos aren't clipped */
+/* sidebar — squarish drawing on the shorter Present tab */
 .timeline-nav.sketch-box {
     --sketch-stroke: url('/static/svgs/Sidebarbox1.svg');
     --sketch-fill: url('/static/svgs/Sidebarbox1-fill.svg');
     --sketch-inset: -8px;
-    overflow-y: visible;
-    padding: 12px 10px;
 }
 
 .timeline-nav.sketch-box.present-tab {
     --sketch-stroke: url('/static/svgs/Sidebarbox2.svg');
     --sketch-fill: url('/static/svgs/Sidebarbox2-fill.svg');
-    --sketch-inset: -8px;
-}
-
-.timeline-nav.sketch-box #tab-timeline,
-.timeline-nav.sketch-box #tab-present {
-    min-height: 0;
-    overflow-y: auto;
 }
 
 .timeline-tab-btn.sketch-box {
@@ -996,17 +994,30 @@ button:hover {
 }
 
 /* home page */
-.hero.sketch-box,
-.home-card.sketch-box {
-    position: relative;
-}
-
 .hero.sketch-box {
+    position: relative;
     --sketch-inset: -10px;
 }
 
 .home-card.sketch-box {
+    position: relative;
     --sketch-inset: -8px;
+}
+
+/* wandering pokemon (js/sprites.js) — z-index -1 inside the hero's isolated
+   context paints above the ::before fill but below the text and ::after stroke.
+   Fixed box + feet anchor because frames differ a few px per facing/step */
+.hero-sprite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    image-rendering: pixelated;
+    transform-origin: 0 0;
+    will-change: transform;
+    pointer-events: none;
+    object-fit: none;
+    object-position: 50% 100%;
 }
 
 button.sketch-box {
@@ -1033,12 +1044,7 @@ button.sketch-box:hover::before {
     }
 
     .navbar.sketch-box {
-        border-radius: 14px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .hero.sketch-box {
-        border-radius: 12px;
     }
 
     .navbar.sketch-box::before,

@@ -50,7 +50,6 @@
 
                     <div class="timeline-card-label" aria-hidden="true">
                         <div class="label-title"><span>{{ item.title }}</span></div>
-                        <div class="label-tape"></div>
                         <div class="label-meta">
                             <div class="label-year">{{ item.year }}</div>
                             <div class="label-category">{{ item.category }}</div>
@@ -87,18 +86,19 @@
 {% block scripts %}
 <script>
     const allNavLinks = document.querySelectorAll('.timeline-nav-link');
-    const items = document.querySelectorAll('.timeline-item');
+    const items = Array.from(document.querySelectorAll('.timeline-item'));
+
+    function linksFor(itemId) {
+        return document.querySelectorAll(`.timeline-nav-link[data-target="${itemId}"]`);
+    }
 
     function setActive(itemId) {
         allNavLinks.forEach(link => link.classList.remove('active'));
-        document.querySelectorAll(`.timeline-nav-link[data-target="${itemId}"]`).forEach(link => {
-            link.classList.add('active');
-        });
+        linksFor(itemId).forEach(link => link.classList.add('active'));
     }
 
     function updateActive() {
-        const itemArr = Array.from(items);
-        if (!itemArr.length) return;
+        if (!items.length) return;
 
         const vh = window.innerHeight;
         const sy = window.scrollY;
@@ -106,7 +106,7 @@
         const triggerPx = vh * 0.35;
 
         // Document-space top of each item (rect.top + scrollY = fixed position in page)
-        const tops = itemArr.map(el => el.getBoundingClientRect().top + sy);
+        const tops = items.map(el => el.getBoundingClientRect().top + sy);
 
         // Find the first item the trigger can never reach (its docTop > maxScroll + triggerPx)
         let firstUnreachable = tops.length;
@@ -133,7 +133,7 @@
             }
         }
 
-        setActive(itemArr[idx].id);
+        setActive(items[idx].id);
     }
 
     window.addEventListener('scroll', updateActive, { passive: true });
@@ -148,12 +148,8 @@
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
-        link.addEventListener('mouseenter', () => {
-            document.querySelectorAll(`.timeline-nav-link[data-target="${link.dataset.target}"]`).forEach(l => l.classList.add('hover-highlight'));
-        });
-        link.addEventListener('mouseleave', () => {
-            document.querySelectorAll(`.timeline-nav-link[data-target="${link.dataset.target}"]`).forEach(l => l.classList.remove('hover-highlight'));
-        });
+        link.addEventListener('mouseenter', () => linksFor(link.dataset.target).forEach(l => l.classList.add('hover-highlight')));
+        link.addEventListener('mouseleave', () => linksFor(link.dataset.target).forEach(l => l.classList.remove('hover-highlight')));
     });
 
     document.querySelectorAll('.timeline-nav-year-link').forEach(link => {

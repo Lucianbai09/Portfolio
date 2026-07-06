@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% macro sketch(box) %}style="--sketch-stroke: url('/static/svgs/{{ box }}.svg'); --sketch-fill: url('/static/svgs/{{ box }}-fill.svg')"{% endmacro %}
 
 <h1 class="center_text sketch-box" {{ sketch('Identitybox') }}>Identity</h1>
 

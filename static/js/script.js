@@ -20,7 +20,6 @@ function initCarousel(id, items) {
         if (item.embed) {
             const iframe = document.createElement('iframe');
             iframe.src = item.embed + '?utm_source=generator';
-            iframe.setAttribute('frameBorder', '0');
             iframe.setAttribute('scrolling', 'no');
             iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
             card.appendChild(iframe);

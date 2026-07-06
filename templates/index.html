@@ -1,17 +1,13 @@
 {% extends "base.html" %}
 
-{% block body_class %}home-page{% endblock %}
-
-{% macro sketch(box) %}style="--sketch-stroke: url('/static/svgs/{{ box }}.svg'); --sketch-fill: url('/static/svgs/{{ box }}-fill.svg')"{% endmacro %}
-
 {% block content %}
 
 <div class="hero sketch-box" {{ sketch('Herobox') }}>
     <h1>Lucian Bai</h1>
     <p class="hero-sub">Grade 11 · Pierre Elliott Trudeau High School · Ontario</p>
     <p class="hero-desc">
-        I'm a student passionate about engineering, programming, and building cool things.
-        Currently building full stack <a href="https://github.com/Lucianbai09/FBLC-business-project" target="_blank">web apps</a> and a <a href="/memories#water-turret">water turret</a>, along with interning <a href="https://www.nokia.com/careers/our-locations/canada/students-and-graduates/future-tech-summer-internship/" target="_blank">@Nokia</a> this summer.
+        I am a student passionate about engineering, programming, and building cool things. Currently building full stack <a href="https://github.com/Lucianbai09/FBLC-business-project" target="_blank">web apps</a> 
+        and an automated <a href="/memories#water-turret"> water turret</a>, while interning <a href="https://www.nokia.com/careers/our-locations/canada/students-and-graduates/future-tech-summer-internship/" target="_blank">@Nokia</a> this summer.
     </p>
 </div>
 
@@ -24,6 +20,7 @@
         <a href="/memories">
             <button class="bubbly_button sketch-box" {{ sketch('Memoriesbutton') }}>View Memories</button>
         </a>
+        <div class="card-doodle memory-doodle" aria-hidden="true"></div>
     </div>
 
     <div class="home-card sketch-box" {{ sketch('Homebox2') }}>
@@ -33,7 +30,12 @@
         <a href="/identity">
             <button class="bubbly_button sketch-box" {{ sketch('Identitybutton') }}>View Identity</button>
         </a>
+        <div class="card-doodle identity-doodle" aria-hidden="true"></div>
     </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/sprites.js') }}"></script>
 {% endblock %}
