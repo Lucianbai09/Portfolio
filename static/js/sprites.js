@@ -88,14 +88,13 @@
     function inside(x, y) {
         /* no shape map (svg failed to rasterize) — stay well clear of the
            drawn border's inward wobble instead of roaming edge-to-edge */
-        if (!alpha) return x > 24 && y > 24 && x < W - 24 && y < H - 24;
+        if (!alpha) return x > 14 && y > 14 && x < W - 14 && y < H - 14;
         x = (x + INSET) | 0; y = (y + INSET) | 0;
         return x >= 0 && y >= 0 && x < aw && y < ah && alpha[(y * aw + x) * 4 + 3] > 127;
     }
 
     /* walk the sprite rect's perimeter (plus a margin) every STEP px — the
-       hand-drawn edge wobbles too much for corner checks alone. Mobile keeps
-       a bigger standoff so sprites never crowd the border line */
+       hand-drawn edge wobbles too much for corner checks alone */
     var MARGIN = 3, STEP = 8;
     function fits(x, y, w, h) {
         var x0 = x - MARGIN, y0 = y - MARGIN, x1 = x + w + MARGIN, y1 = y + h + MARGIN, i;
