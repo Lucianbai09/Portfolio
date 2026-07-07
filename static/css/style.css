@@ -269,6 +269,12 @@ button:hover {
 #tab-present {
     min-height: 0;
     overflow-y: auto;
+    scrollbar-width: none;
+}
+
+#tab-timeline::-webkit-scrollbar,
+#tab-present::-webkit-scrollbar {
+    display: none;
 }
 
 .timeline-nav-tabs {
