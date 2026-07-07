@@ -32,10 +32,13 @@
         var ctx = c.getContext('2d');
         try {
             ctx.drawImage(fill, 0, 0, aw, ah);
-            /* punch the drawn line out of the interior so "inside" means
-               strictly within the stroke's inner edge, not under/past it */
+            /* punch the drawn line out of the interior, dilated 3px in every
+               direction — stretched non-uniformly (mobile), the thin ink can
+               antialias below the alpha threshold and sprites kiss the line */
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.drawImage(stroke, 0, 0, aw, ah);
+            for (var dx = -3; dx <= 3; dx += 3)
+                for (var dy = -3; dy <= 3; dy += 3)
+                    ctx.drawImage(stroke, dx, dy, aw, ah);
             var d = ctx.getImageData(0, 0, aw, ah).data;
             /* blank center = svg didn't rasterize -> keep rect fallback */
             if (d[((ah >> 1) * aw + (aw >> 1)) * 4 + 3]) alpha = d;
