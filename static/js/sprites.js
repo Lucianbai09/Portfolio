@@ -43,7 +43,9 @@
     }
 
     function inside(x, y) {
-        if (!alpha) return x > 4 && y > 4 && x < W - 4 && y < H - 4;
+        /* no shape map (svg failed to rasterize) — stay well clear of the
+           drawn border's inward wobble instead of roaming edge-to-edge */
+        if (!alpha) return x > 14 && y > 14 && x < W - 14 && y < H - 14;
         x = (x + INSET) | 0; y = (y + INSET) | 0;
         return x >= 0 && y >= 0 && x < aw && y < ah && alpha[(y * aw + x) * 4 + 3] > 127;
     }

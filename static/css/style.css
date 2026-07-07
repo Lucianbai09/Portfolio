@@ -652,8 +652,8 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
 /* drawn circle arrows — fluid size so they scale with the screen */
 .carousel-btn {
     flex-shrink: 0;
-    width: clamp(32px, 4.5vw, 44px);
-    height: clamp(32px, 4.5vw, 44px);
+    width: clamp(40px, 4.5vw, 44px);
+    height: clamp(40px, 4.5vw, 44px);
     padding: 0;
     border-radius: 50%;
 }
@@ -800,7 +800,7 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
     .navbar-inner {
         flex-direction: column;
         gap: 6px;
-        padding: 10px 18px;
+        padding: 12px 28px;
     }
 
     .nav-left {
@@ -822,7 +822,7 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
     .hero {
         /* stretch into the page gutter so the drawn border lines up with
            the cards' — its ink sits a few px inside the element edge */
-        margin: 30px -8px;
+        margin: 30px -10px;
         padding: 45px 28px;
         /* hold the box near the drawn shape's square-ish proportions: let
            it stretch wide+short and the drawn sides sweep in over the text */
