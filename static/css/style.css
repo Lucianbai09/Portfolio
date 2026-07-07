@@ -824,10 +824,9 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
            the cards' — its ink sits a few px inside the element edge */
         margin: 30px 8px;
         padding: 45px 28px;
-        /* match the drawn shape's 1:1 proportions exactly — svg masks
-           letterbox rather than stretch, so any mismatch leaves dead bands
-           between the element edge and the visible border */
-        aspect-ratio: 1;
+        /* hold the box near the drawn shape's square-ish proportions: let
+           it stretch wide+short and the drawn sides sweep in over the text */
+        aspect-ratio: 1.15;
         display: flex;
         flex-direction: column;
         justify-content: center;
