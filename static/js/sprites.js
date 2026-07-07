@@ -1,6 +1,8 @@
-/* six pokemon wandering the hero box. hit-testing rasterizes the drawn
-    fill svg (same geometry as the ::before mask: hero box + inset) and
-    samples its alpha, so movement respects the irregular shape, not its bbox. */
+/* six pokemon wandering the hero box. hit-testing fills the drawn shape as
+    Path2D vector geometry (same geometry as the ::before mask: hero box +
+    inset) and samples its alpha, so movement respects the irregular shape,
+    not its bbox. Paths are fetched as svg text — canvas drawImage(svg) is
+    flaky on some mobile WebKits and silently left the map unbuilt. */
 (function () {
     var hero = document.querySelector('.hero.sketch-box');
     if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -16,8 +18,30 @@
 
     var W, H, alpha, aw, ah;
     var mons = [];
-    var fillImg = new Image(), strokeImg = new Image();
-    var mFillImg = new Image(), mStrokeImg = new Image();
+    var shapes = {}; /* 'desktop'/'mobile' -> {fill, stroke} of {vb, path} */
+
+    function parseSvg(text) {
+        return {
+            vb: text.match(/viewBox="([^"]+)"/)[1].split(/\s+/).map(Number),
+            path: new Path2D(text.match(/ d="([^"]+)"/)[1])
+        };
+    }
+
+    function loadShape(name, base) {
+        var parts = {};
+        ['fill', 'stroke'].forEach(function (kind) {
+            fetch('/static/svgs/' + base + (kind === 'fill' ? '-fill' : '') + '.svg')
+                .then(function (r) { return r.text(); })
+                .then(function (t) {
+                    parts[kind] = parseSvg(t);
+                    if (parts.fill && parts.stroke) {
+                        shapes[name] = parts;
+                        buildShape();
+                    }
+                })
+                .catch(function () { });
+        });
+    }
 
     function buildShape() {
         W = hero.offsetWidth; H = hero.offsetHeight;
@@ -25,24 +49,33 @@
         /* mobile swaps in its own squarer drawing (Mobileherobox) */
         var mobile = matchMedia('(max-width: 768px)').matches;
         MARGIN = mobile ? 9 : 3;
-        var fill = mobile ? mFillImg : fillImg;
-        var stroke = mobile ? mStrokeImg : strokeImg;
+        var sh = mobile ? shapes.mobile : shapes.desktop;
+        hero.dataset.shape = 'rect';
+        if (!sh) return; /* not fetched (yet) -> safe rect fallback */
         aw = W + 2 * INSET; ah = H + 2 * INSET;
+        var vb = sh.fill.vb, sx = aw / vb[2], sy = ah / vb[3];
         var c = document.createElement('canvas');
         c.width = aw; c.height = ah;
         var ctx = c.getContext('2d');
         try {
-            ctx.drawImage(fill, 0, 0, aw, ah);
+            ctx.setTransform(sx, 0, 0, sy, -vb[0] * sx, -vb[1] * sy);
+            ctx.fill(sh.fill.path);
             /* punch the drawn line out of the interior, dilated 3px in every
                direction — stretched non-uniformly (mobile), the thin ink can
                antialias below the alpha threshold and sprites kiss the line */
             ctx.globalCompositeOperation = 'destination-out';
             for (var dx = -3; dx <= 3; dx += 3)
-                for (var dy = -3; dy <= 3; dy += 3)
-                    ctx.drawImage(stroke, dx, dy, aw, ah);
+                for (var dy = -3; dy <= 3; dy += 3) {
+                    ctx.setTransform(sx, 0, 0, sy, dx - vb[0] * sx, dy - vb[1] * sy);
+                    ctx.fill(sh.stroke.path);
+                }
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             var d = ctx.getImageData(0, 0, aw, ah).data;
-            /* blank center = svg didn't rasterize -> keep rect fallback */
-            if (d[((ah >> 1) * aw + (aw >> 1)) * 4 + 3]) alpha = d;
+            /* blank center = paths didn't fill -> keep rect fallback */
+            if (d[((ah >> 1) * aw + (aw >> 1)) * 4 + 3]) {
+                alpha = d;
+                hero.dataset.shape = 'path';
+            }
         } catch (e) { }
     }
 
@@ -147,25 +180,18 @@
         }
     }
 
-    var pending = 4;
-    var boxImgs = [fillImg, strokeImg, mFillImg, mStrokeImg];
-    boxImgs.forEach(function (im) {
-        im.onload = im.onerror = function () {
-            if (--pending) return;
-            buildShape();
-            MONS.forEach(addMon);
-            var last;
-            requestAnimationFrame(function loop(t) {
-                tick(Math.min((t - (last || t)) / 1000, 0.05));
-                last = t;
-                requestAnimationFrame(loop);
-            });
-        };
+    /* shapes arrive async and trigger buildShape; until then sprites use the
+       conservative rect and drift into the drawn shape once it lands */
+    loadShape('desktop', 'Herobox');
+    loadShape('mobile', 'Mobileherobox');
+    buildShape();
+    MONS.forEach(addMon);
+    var last;
+    requestAnimationFrame(function loop(t) {
+        tick(Math.min((t - (last || t)) / 1000, 0.05));
+        last = t;
+        requestAnimationFrame(loop);
     });
-    fillImg.src = '/static/svgs/Herobox-fill.svg';
-    strokeImg.src = '/static/svgs/Herobox.svg';
-    mFillImg.src = '/static/svgs/Mobileherobox-fill.svg';
-    mStrokeImg.src = '/static/svgs/Mobileherobox.svg';
 
     /* the hero resizes without a window resize event too (webfont swap
        changes text metrics) — the shape canvas must follow or it drifts
