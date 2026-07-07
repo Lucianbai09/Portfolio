@@ -1,6 +1,8 @@
-/* six pokemon wandering the hero box. hit-testing rasterizes the drawn
-    fill svg (same geometry as the ::before mask: hero box + inset) and
-    samples its alpha, so movement respects the irregular shape, not its bbox. */
+/* six pokemon wandering the hero box. hit-testing fills the drawn shape as
+    Path2D vector geometry (same geometry as the ::before mask: hero box +
+    inset) and samples its alpha, so movement respects the irregular shape,
+    not its bbox. Paths are fetched as svg text — canvas drawImage(svg) is
+    flaky on some mobile WebKits and silently left the map unbuilt. */
 (function () {
     var hero = document.querySelector('.hero.sketch-box');
     if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -28,18 +30,22 @@
         var fill = mobile ? mFillImg : fillImg;
         var stroke = mobile ? mStrokeImg : strokeImg;
         aw = W + 2 * INSET; ah = H + 2 * INSET;
+        var vb = sh.fill.vb, sx = aw / vb[2], sy = ah / vb[3];
         var c = document.createElement('canvas');
         c.width = aw; c.height = ah;
         var ctx = c.getContext('2d');
         try {
-            ctx.drawImage(fill, 0, 0, aw, ah);
+            ctx.setTransform(sx, 0, 0, sy, -vb[0] * sx, -vb[1] * sy);
+            ctx.fill(sh.fill.path);
             /* punch the drawn line out of the interior, dilated 3px in every
-               direction — stretched non-uniformly (mobile), the thin ink can
-               antialias below the alpha threshold and sprites kiss the line */
+               direction, so sprites keep clear of the ink's fuzzy edge */
             ctx.globalCompositeOperation = 'destination-out';
             for (var dx = -3; dx <= 3; dx += 3)
-                for (var dy = -3; dy <= 3; dy += 3)
-                    ctx.drawImage(stroke, dx, dy, aw, ah);
+                for (var dy = -3; dy <= 3; dy += 3) {
+                    ctx.setTransform(sx, 0, 0, sy, dx - vb[0] * sx, dy - vb[1] * sy);
+                    ctx.fill(sh.stroke.path);
+                }
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             var d = ctx.getImageData(0, 0, aw, ah).data;
             /* blank center = svg didn't rasterize -> keep rect fallback */
             if (d[((ah >> 1) * aw + (aw >> 1)) * 4 + 3]) alpha = d;
