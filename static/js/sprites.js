@@ -1,6 +1,4 @@
-/* six pokemon wandering the hero box. hit-testing rasterizes the drawn
-    fill svg (same geometry as the ::before mask: hero box + inset) and
-    samples its alpha, so movement respects the irregular shape, not its bbox. */
+/* six pokemon wandering the hero box, hit-tested against the drawn shape */
 (function () {
     var hero = document.querySelector('.hero.sketch-box');
     if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -9,7 +7,7 @@
     var DIRS = ['front', 'back', 'left', 'right'];
     var INSET = 10; /* keep in sync with .hero --sketch-inset */
 
-    /* 2x on desktop, smaller on phones (1.5 lands on whole device px at 2-3x dpr) */
+    /* 2x desktop, 1.5x phones (whole device px at 2-3x dpr) */
     function scaleNow() {
         return matchMedia('(max-width: 768px)').matches ? 1.5 : 2;
     }
@@ -24,7 +22,6 @@
         alpha = null;
         /* mobile swaps in its own squarer drawing (Mobileherobox) */
         var mobile = matchMedia('(max-width: 768px)').matches;
-        MARGIN = mobile ? 9 : 3;
         var fill = mobile ? mFillImg : fillImg;
         var stroke = mobile ? mStrokeImg : strokeImg;
         aw = W + 2 * INSET; ah = H + 2 * INSET;
@@ -33,13 +30,9 @@
         var ctx = c.getContext('2d');
         try {
             ctx.drawImage(fill, 0, 0, aw, ah);
-            /* punch the drawn line out of the interior, dilated 3px in every
-               direction — stretched non-uniformly (mobile), the thin ink can
-               antialias below the alpha threshold and sprites kiss the line */
+            /* punch the line out so "inside" stops at its inner edge */
             ctx.globalCompositeOperation = 'destination-out';
-            for (var dx = -3; dx <= 3; dx += 3)
-                for (var dy = -3; dy <= 3; dy += 3)
-                    ctx.drawImage(stroke, dx, dy, aw, ah);
+            ctx.drawImage(stroke, 0, 0, aw, ah);
             var d = ctx.getImageData(0, 0, aw, ah).data;
             /* blank center = svg didn't rasterize -> keep rect fallback */
             if (d[((ah >> 1) * aw + (aw >> 1)) * 4 + 3]) alpha = d;
@@ -47,17 +40,14 @@
     }
 
     function inside(x, y) {
-        /* no shape map (svg failed to rasterize) — stay well clear of the
-           drawn border's inward wobble instead of roaming edge-to-edge */
+        /* no shape map — stay well inside the wobbly border */
         if (!alpha) return x > 24 && y > 24 && x < W - 24 && y < H - 24;
         x = (x + INSET) | 0; y = (y + INSET) | 0;
         return x >= 0 && y >= 0 && x < aw && y < ah && alpha[(y * aw + x) * 4 + 3] > 127;
     }
 
-    /* walk the sprite rect's perimeter (plus a margin) every STEP px — the
-       hand-drawn edge wobbles too much for corner checks alone. Mobile keeps
-       a bigger standoff so sprites never crowd the border line */
-    var MARGIN = 3, STEP = 8;
+    /* sample the sprite's perimeter; MARGIN keeps sprites off the line */
+    var MARGIN = 10, STEP = 8;
     function fits(x, y, w, h) {
         var x0 = x - MARGIN, y0 = y - MARGIN, x1 = x + w + MARGIN, y1 = y + h + MARGIN, i;
         for (i = x0; ; i = Math.min(i + STEP, x1)) {
@@ -141,7 +131,7 @@
                 m.cur = dir + m.frame;
                 m.el.src = m.frames[m.cur].src;
             }
-            /* whole-px snap: fractional offsets make pixelated art shimmer */
+            /* whole-px snap so pixel art doesn't shimmer */
             m.el.style.transform = 'translate(' + Math.round(m.x) + 'px,'
                 + Math.round(m.y) + 'px) scale(' + m.s + ')';
         }
@@ -167,9 +157,7 @@
     mFillImg.src = '/static/svgs/Mobileherobox-fill.svg';
     mStrokeImg.src = '/static/svgs/Mobileherobox.svg';
 
-    /* the hero resizes without a window resize event too (webfont swap
-       changes text metrics) — the shape canvas must follow or it drifts
-       out of sync with the stretched mask and sprites cross the border */
+    /* the hero can resize without a window resize (webfont swap) */
     var rt;
     new ResizeObserver(function () {
         clearTimeout(rt);

@@ -105,16 +105,16 @@
         const maxScroll = Math.max(0, document.documentElement.scrollHeight - vh);
         const triggerPx = vh * 0.35;
 
-        // Document-space top of each item (rect.top + scrollY = fixed position in page)
+        // document-space top of each item
         const tops = items.map(el => el.getBoundingClientRect().top + sy);
 
-        // Find the first item the trigger can never reach (its docTop > maxScroll + triggerPx)
+        // first item the trigger line can never reach
         let firstUnreachable = tops.length;
         for (let i = 0; i < tops.length; i++) {
             if (tops[i] > maxScroll + triggerPx) { firstUnreachable = i; break; }
         }
 
-        // Standard: last reachable item whose top has crossed the trigger line
+        // last reachable item whose top crossed the trigger line
         const readLine = sy + triggerPx;
         let idx = 0;
         for (let i = 0; i < firstUnreachable; i++) {
@@ -166,7 +166,7 @@
         document.querySelectorAll('.timeline-tab-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.tab === tab);
         });
-        // swap the drawn sidebar box (tall vs squarish) and recenter for the new height
+        // swap the drawn sidebar box and recenter
         document.querySelector('.timeline-nav').classList.toggle('present-tab', tab === 'present');
         window.dispatchEvent(new Event('resize'));
     }
@@ -181,9 +181,7 @@
         window.addEventListener('resize', updateTop);
     })();
 
-    // Box expand/collapse animation — drawn frames stepped in sync with the
-    // card's 0.315s steps(3) scale transition (105ms per step).
-    // Frames come in 3 recolored sets matching the theme (brown = originals).
+    // box open/close — frames stepped in sync with the card's scale transition
     const BOX_FRAME_BASE = "{{ url_for('static', filename='svgs/') }}";
     function frameUrl(f) {
         const suffix = document.body.classList.contains('dark') ? '-dark'
