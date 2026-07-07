@@ -776,6 +776,11 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
     background-color: black;
 }
 
+/* carousel arrows pop like the card doodles: black lines, brown fill */
+.brown .carousel-btn.sketch-box::after {
+    background-color: black;
+}
+
 /* mobile (must match the 768 breakpoint in script.js) */
 @media (max-width: 768px) {
     body {
@@ -786,16 +791,16 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
         padding: 0 12px;
     }
 
-    /* navbar stacks vertically */
+    /* navbar stacks vertically — sized to content, not the screen */
     .navbar {
-        width: calc(100% - 16px);
+        max-width: calc(100% - 24px);
         top: 8px;
     }
 
     .navbar-inner {
         flex-direction: column;
-        gap: 10px;
-        padding: 10px 14px;
+        gap: 6px;
+        padding: 10px 18px;
     }
 
     .nav-left {
@@ -815,7 +820,16 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
 
     /* home */
     .hero {
+        /* stretch into the page gutter so the drawn border lines up with
+           the cards' — its ink sits a few px inside the element edge */
+        margin: 30px -8px;
         padding: 45px 28px;
+        /* hold the box near the drawn shape's square-ish proportions: let
+           it stretch wide+short and the drawn sides sweep in over the text */
+        aspect-ratio: 1.15;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .hero h1 {
