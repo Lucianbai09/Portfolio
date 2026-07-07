@@ -822,7 +822,7 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
     .hero {
         /* stretch into the page gutter so the drawn border lines up with
            the cards' — its ink sits a few px inside the element edge */
-        margin: 30px -14px;
+        margin: 30px 8px;
         padding: 45px 28px;
         /* match the drawn shape's 1:1 proportions exactly — svg masks
            letterbox rather than stretch, so any mismatch leaves dead bands
