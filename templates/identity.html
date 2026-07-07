@@ -8,9 +8,9 @@
 <section class="fav-section">
     <h2 class="fav-section-title sketch-box" {{ sketch(box) }}>{{ title }}</h2>
     <div class="fav-carousel" id="carousel-{{ id }}">
-        <button class="carousel-btn" onclick="carouselMove('{{ id }}',-1)">&#8249;</button>
+        <button class="carousel-btn carousel-prev sketch-box" onclick="carouselMove('{{ id }}',-1)" aria-label="Previous"></button>
         <div class="carousel-track"></div>
-        <button class="carousel-btn" onclick="carouselMove('{{ id }}',1)">&#8250;</button>
+        <button class="carousel-btn carousel-next sketch-box" onclick="carouselMove('{{ id }}',1)" aria-label="Next"></button>
     </div>
 </section>
 {% endfor %}

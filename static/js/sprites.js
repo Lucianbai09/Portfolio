@@ -17,22 +17,25 @@
     var W, H, alpha, aw, ah;
     var mons = [];
     var fillImg = new Image(), strokeImg = new Image();
+    var mFillImg = new Image(), mStrokeImg = new Image();
 
     function buildShape() {
         W = hero.offsetWidth; H = hero.offsetHeight;
         alpha = null;
-        /* mobile swaps the drawing for a plain bordered rect */
-        if (matchMedia('(max-width: 768px)').matches) return;
+        /* mobile swaps in its own squarer drawing (Mobileherobox) */
+        var mobile = matchMedia('(max-width: 768px)').matches;
+        var fill = mobile ? mFillImg : fillImg;
+        var stroke = mobile ? mStrokeImg : strokeImg;
         aw = W + 2 * INSET; ah = H + 2 * INSET;
         var c = document.createElement('canvas');
         c.width = aw; c.height = ah;
         var ctx = c.getContext('2d');
         try {
-            ctx.drawImage(fillImg, 0, 0, aw, ah);
+            ctx.drawImage(fill, 0, 0, aw, ah);
             /* punch the drawn line out of the interior so "inside" means
                strictly within the stroke's inner edge, not under/past it */
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.drawImage(strokeImg, 0, 0, aw, ah);
+            ctx.drawImage(stroke, 0, 0, aw, ah);
             var d = ctx.getImageData(0, 0, aw, ah).data;
             /* blank center = svg didn't rasterize -> keep rect fallback */
             if (d[((ah >> 1) * aw + (aw >> 1)) * 4 + 3]) alpha = d;
@@ -137,20 +140,25 @@
         }
     }
 
-    var pending = 2;
-    fillImg.onload = fillImg.onerror = strokeImg.onload = strokeImg.onerror = function () {
-        if (--pending) return;
-        buildShape();
-        MONS.forEach(addMon);
-        var last;
-        requestAnimationFrame(function loop(t) {
-            tick(Math.min((t - (last || t)) / 1000, 0.05));
-            last = t;
-            requestAnimationFrame(loop);
-        });
-    };
+    var pending = 4;
+    var boxImgs = [fillImg, strokeImg, mFillImg, mStrokeImg];
+    boxImgs.forEach(function (im) {
+        im.onload = im.onerror = function () {
+            if (--pending) return;
+            buildShape();
+            MONS.forEach(addMon);
+            var last;
+            requestAnimationFrame(function loop(t) {
+                tick(Math.min((t - (last || t)) / 1000, 0.05));
+                last = t;
+                requestAnimationFrame(loop);
+            });
+        };
+    });
     fillImg.src = '/static/svgs/Herobox-fill.svg';
     strokeImg.src = '/static/svgs/Herobox.svg';
+    mFillImg.src = '/static/svgs/Mobileherobox-fill.svg';
+    mStrokeImg.src = '/static/svgs/Mobileherobox.svg';
 
     /* the hero resizes without a window resize event too (webfont swap
        changes text metrics) — the shape canvas must follow or it drifts

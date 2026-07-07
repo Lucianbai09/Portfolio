@@ -649,16 +649,13 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
     gap: 12px;
 }
 
+/* drawn circle arrows — fluid size so they scale with the screen */
 .carousel-btn {
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
+    width: clamp(32px, 4.5vw, 44px);
+    height: clamp(32px, 4.5vw, 44px);
     padding: 0;
     border-radius: 50%;
-    font-size: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .carousel-track {
@@ -818,11 +815,19 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
 
     /* home */
     .hero {
-        padding: 50px 16px;
+        padding: 45px 28px;
     }
 
     .hero h1 {
-        font-size: 34px;
+        font-size: 30px;
+    }
+
+    .hero-sub {
+        font-size: 13px;
+    }
+
+    .hero-desc {
+        font-size: 15px;
     }
 
     .home-cards-grid {
@@ -1050,9 +1055,11 @@ theme, same trick as the drawn borders. Anchored bottom-right, so a wider
     background-color: var(--border-color);
 }
 
-/* home page */
+/* home page — shape lives here (not inline) so the mobile query can swap it */
 .hero.sketch-box {
     position: relative;
+    --sketch-stroke: url('/static/svgs/Herobox.svg');
+    --sketch-fill: url('/static/svgs/Herobox-fill.svg');
     --sketch-inset: -10px;
 }
 
@@ -1082,6 +1089,23 @@ button.sketch-box {
     --sketch-inset: -4px;
 }
 
+/* the drawn circle IS the button — no outset needed. Stroke uses the -bold
+   variant (ink dilated ~14 canvas units) so the drawing survives shrinking
+   from its 462-unit canvas down to a ~40px button */
+.carousel-btn.sketch-box {
+    --sketch-inset: 0;
+}
+
+.carousel-prev {
+    --sketch-stroke: url('/static/svgs/Leftcarouselarrow-bold.svg');
+    --sketch-fill: url('/static/svgs/Leftcarouselarrow-fill.svg');
+}
+
+.carousel-next {
+    --sketch-stroke: url('/static/svgs/Rightcarouselarrow-bold.svg');
+    --sketch-fill: url('/static/svgs/Rightcarouselarrow-fill.svg');
+}
+
 /* hover tint inside the drawn shape instead of the rectangular element */
 button.sketch-box:hover {
     background-color: transparent;
@@ -1091,23 +1115,17 @@ button.sketch-box:hover::before {
     background-image: linear-gradient(var(--btn-hover), var(--btn-hover));
 }
 
-/* mobile: stacked navbar (~3:1) and hero (~1.2:1) stretch their wide drawings
-   too far — fall back to plain borders there */
+/* mobile: the stacked navbar and squarer hero would stretch the desktop
+   drawings too far — swap in shapes drawn for these aspect ratios */
 @media (max-width: 768px) {
-    .navbar.sketch-box,
-    .hero.sketch-box {
-        border: 2px solid var(--border-color);
-        background-color: var(--card-bg);
-    }
-
     .navbar.sketch-box {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --sketch-stroke: url('/static/svgs/Mobilenavbarbox.svg');
+        --sketch-fill: url('/static/svgs/Mobilenavbarbox-fill.svg');
+        --sketch-inset: -8px -10px;
     }
 
-    .navbar.sketch-box::before,
-    .navbar.sketch-box::after,
-    .hero.sketch-box::before,
-    .hero.sketch-box::after {
-        display: none;
+    .hero.sketch-box {
+        --sketch-stroke: url('/static/svgs/Mobileherobox.svg');
+        --sketch-fill: url('/static/svgs/Mobileherobox-fill.svg');
     }
 }
