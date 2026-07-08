@@ -49,15 +49,7 @@ a {
     text-decoration: none;
 }
 
-/* every boxed element shares the card look */
-.center_text,
-.navbar,
-button,
-.hero,
-.home-card,
-.timeline-nav,
-.footer,
-.fav-section-title,
+/* plain cards — everything else draws its box via .sketch-box */
 .fav-card,
 .timeline-item .timeline-card {
     border: 2px solid var(--border-color);
@@ -119,12 +111,14 @@ button,
     gap: 12px;
 }
 
-.nav-social a {
+.nav-social a,
+.footer-icon {
     opacity: 0.6;
     transition: opacity 0.15s;
 }
 
-.nav-social a:hover {
+.nav-social a:hover,
+.footer-icon:hover {
     opacity: 1;
 }
 
@@ -262,7 +256,6 @@ button:hover {
     gap: 2px;
     padding: 12px 10px;
     max-height: calc(100vh - 140px);
-    border-radius: 12px;
 }
 
 #tab-timeline,
@@ -288,13 +281,9 @@ button:hover {
     padding: 5px 0;
     font-size: 11px;
     font-weight: bold;
-    border: 2px solid var(--border-color);
     border-radius: 8px;
-    cursor: pointer;
     opacity: 0.45;
     transition: opacity 0.15s;
-    background: transparent;
-    color: var(--text);
 }
 
 .timeline-tab-btn:hover {
@@ -590,15 +579,6 @@ button:hover {
     margin-bottom: 5px;
 }
 
-.footer-icon {
-    opacity: 0.6;
-    transition: opacity 0.15s;
-}
-
-.footer-icon:hover {
-    opacity: 1;
-}
-
 .footer-copy {
     font-size: 13px;
     opacity: 0.4;
@@ -740,11 +720,8 @@ button:hover {
     background: #5a4238;
 }
 
-.brown .card-doodle {
-    background-color: black;
-}
-
-/* black arrow lines in brown mode, like the doodles */
+/* black ink for the doodles and carousel arrows in brown mode */
+.brown .card-doodle,
 .brown .carousel-btn.sketch-box::after {
     background-color: black;
 }
@@ -759,7 +736,6 @@ button:hover {
         padding: 0 12px;
     }
 
-    /* navbar stacks vertically */
     .navbar {
         max-width: calc(100% - 24px);
         top: 8px;
@@ -790,11 +766,6 @@ button:hover {
     .hero {
         margin: 30px 8px;
         padding: 45px 28px;
-        /* match the drawing's 1:1 aspect — masks letterbox, mismatch leaves gaps */
-        aspect-ratio: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
     }
 
     .hero h1 {
@@ -875,14 +846,15 @@ button:hover {
         justify-content: center;
     }
 
+    /* min() caps keep them inside the text pocket on wide single-column cards */
     .memory-doodle {
-        width: 42%;
+        width: min(42%, 200px);
         right: 14px;
         bottom: 18px;
     }
 
     .identity-doodle {
-        width: 34%;
+        width: min(34%, 160px);
         right: 28px;
         bottom: 20px;
     }
@@ -908,12 +880,43 @@ button:hover {
     }
 }
 
+/* phones: square hero to match the Mobileherobox drawing (swapped in below) */
+@media (max-width: 480px) {
+    .hero {
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+/* split-screen laptops: doodles centered in the pocket below the image
+   (16px card padding + 140px img), card text nudged off the drawn border */
+@media (min-width: 481px) and (max-width: 768px) {
+    /* span the pocket; the mask's center/contain centers the visible drawing */
+    .card-doodle {
+        top: 156px;
+        bottom: 0;
+    }
+
+    .home-card h2,
+    .home-card p,
+    .home-card a {
+        margin-left: 12px;
+    }
+}
+
 /* hand-drawn boxes: drawing + its *-fill.svg mask the two pseudo layers
-   (fill=--card-bg, stroke=--border-color). No position here — breaks sticky */
+   (fill=--card-bg, stroke=--border-color). :where() keeps zero specificity
+   so the sticky navbar/sidebar rules still win */
 .sketch-box {
     isolation: isolate;
     border: none;
     background-color: transparent;
+}
+
+:where(.sketch-box) {
+    position: relative;
 }
 
 .sketch-box::before,
@@ -955,7 +958,6 @@ button:hover {
 }
 
 .footer.sketch-box {
-    position: relative;
     --sketch-stroke: url('/static/svgs/Footerbox.svg');
     --sketch-fill: url('/static/svgs/Footerbox-fill.svg');
     --sketch-inset: -8px -12px;
@@ -963,12 +965,10 @@ button:hover {
 
 /* heading boxes — identity headings get their shapes inline in the template */
 .fav-section-title.sketch-box {
-    position: relative;
     --sketch-inset: -8px -5px;
 }
 
 .center_text.sketch-box {
-    position: relative;
     --sketch-inset: -14px -6px;
 }
 
@@ -976,11 +976,6 @@ button:hover {
     --sketch-stroke: url('/static/svgs/Memoriesbox.svg');
     --sketch-fill: url('/static/svgs/Memoriesbox-fill.svg');
     --sketch-inset: -12px -6px;
-}
-
-/* hover tint follows the drawn shape */
-.memories-page .center_text.sketch-box:hover::before {
-    background-image: linear-gradient(var(--btn-hover), var(--btn-hover));
 }
 
 /* sidebar — squarish drawing on the shorter Present tab */
@@ -996,8 +991,6 @@ button:hover {
 }
 
 .timeline-tab-btn.sketch-box {
-    /* load-bearing: anchors the drawn box to the button, not the sidebar */
-    position: relative;
     --sketch-inset: -3px;
 }
 
@@ -1012,9 +1005,7 @@ button:hover {
 }
 
 /* active tab inverts inside the drawn shape */
-.timeline-tab-btn.sketch-box.active,
-.timeline-tab-btn.sketch-box.active:hover {
-    background-color: transparent;
+.timeline-tab-btn.sketch-box.active {
     color: var(--bg);
 }
 
@@ -1022,16 +1013,14 @@ button:hover {
     background-color: var(--border-color);
 }
 
-/* shape lives here so the mobile query can swap it */
+/* shape lives here so the phone query can swap it */
 .hero.sketch-box {
-    position: relative;
     --sketch-stroke: url('/static/svgs/Herobox.svg');
     --sketch-fill: url('/static/svgs/Herobox-fill.svg');
     --sketch-inset: -10px;
 }
 
 .home-card.sketch-box {
-    position: relative;
     --sketch-inset: -8px;
 }
 
@@ -1050,7 +1039,6 @@ button:hover {
 }
 
 button.sketch-box {
-    position: relative;
     --sketch-inset: -4px;
 }
 
@@ -1070,18 +1058,22 @@ button.sketch-box {
 }
 
 /* hover tint follows the drawn shape */
-button.sketch-box:hover::before {
+button.sketch-box:hover::before,
+.memories-page .center_text.sketch-box:hover::before {
     background-image: linear-gradient(var(--btn-hover), var(--btn-hover));
 }
 
-/* mobile: swap in boxes drawn for the stacked navbar / squarer hero */
+/* mobile: swap in the box drawn for the stacked navbar */
 @media (max-width: 768px) {
     .navbar.sketch-box {
         --sketch-stroke: url('/static/svgs/Mobilenavbarbox.svg');
         --sketch-fill: url('/static/svgs/Mobilenavbarbox-fill.svg');
         --sketch-inset: -8px -10px;
     }
+}
 
+/* phones only: the square hero drawing (must match the 480px check in sprites.js) */
+@media (max-width: 480px) {
     .hero.sketch-box {
         --sketch-stroke: url('/static/svgs/Mobileherobox.svg');
         --sketch-fill: url('/static/svgs/Mobileherobox-fill.svg');

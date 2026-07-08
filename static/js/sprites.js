@@ -20,8 +20,8 @@
     function buildShape() {
         W = hero.offsetWidth; H = hero.offsetHeight;
         alpha = null;
-        /* mobile swaps in its own squarer drawing (Mobileherobox) */
-        var mobile = matchMedia('(max-width: 768px)').matches;
+        /* phones swap in the squarer drawing (must match the 480px swap in style.css) */
+        var mobile = matchMedia('(max-width: 480px)').matches;
         var fill = mobile ? mFillImg : fillImg;
         var stroke = mobile ? mStrokeImg : strokeImg;
         aw = W + 2 * INSET; ah = H + 2 * INSET;

@@ -8,7 +8,6 @@
 
 <div class="experience-layout">
 
-    <!-- sidebar outline -->
     <aside class="timeline-nav sketch-box">
         <div class="timeline-nav-tabs">
             <button class="timeline-tab-btn sketch-box active" data-tab="timeline" onclick="switchTab('timeline')">Timeline</button>
@@ -18,31 +17,27 @@
         <div id="tab-timeline">
             {% set ns = namespace(last_year=None) %}
             {% for item in timeline %}
-                {% set item_id = item.id if item.id else 'timeline-item-' ~ loop.index %}
                 {% set start_year = item.year.split('-')[0] %}
                 {% if start_year != ns.last_year %}
-                <a href="#{{ item_id }}" class="timeline-nav-year-link">{{ start_year }}</a>
+                <a href="#{{ item.id }}" class="timeline-nav-year-link">{{ start_year }}</a>
                 {% set ns.last_year = start_year %}
                 {% endif %}
-                <a href="#{{ item_id }}" class="timeline-nav-link" data-target="{{ item_id }}">{{ item.title }}</a>
+                <a href="#{{ item.id }}" class="timeline-nav-link" data-target="{{ item.id }}">{{ item.title }}</a>
             {% endfor %}
         </div>
 
         <div id="tab-present" style="display:none">
             {% for item in timeline %}
-                {% set item_id = item.id if item.id else 'timeline-item-' ~ loop.index %}
                 {% if 'present' in item.year %}
-                <a href="#{{ item_id }}" class="timeline-nav-link" data-target="{{ item_id }}">{{ item.title }}</a>
+                <a href="#{{ item.id }}" class="timeline-nav-link" data-target="{{ item.id }}">{{ item.title }}</a>
                 {% endif %}
             {% endfor %}
         </div>
     </aside>
 
-    <!-- timeline -->
     <div class="timeline">
         {% for item in timeline %}
-        {% set item_id = item.id if item.id else 'timeline-item-' ~ loop.index %}
-        <div id="{{ item_id }}" class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
+        <div id="{{ item.id }}" class="timeline-item {{ 'left' if loop.index % 2 == 0 else 'right' }}">
 
                 <div class="timeline-card">
 
@@ -63,11 +58,11 @@
                     {% if item.image %}
                     {% if item.link %}
                     <a href="{{ item.link }}" target="_blank" class="timeline-image-link" onclick="event.stopPropagation()">
-                        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image">
+                        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image" loading="lazy">
                     </a>
                     {% else %}
                     <div class="timeline-image-link">
-                        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image">
+                        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image" loading="lazy">
                     </div>
                     {% endif %}
                     {% endif %}
@@ -92,9 +87,17 @@
         return document.querySelectorAll(`.timeline-nav-link[data-target="${itemId}"]`);
     }
 
+    let activeId;
     function setActive(itemId) {
+        if (itemId === activeId) return;
+        activeId = itemId;
         allNavLinks.forEach(link => link.classList.remove('active'));
         linksFor(itemId).forEach(link => link.classList.add('active'));
+    }
+
+    function scrollToId(itemId) {
+        const target = document.getElementById(itemId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     function updateActive() {
@@ -142,11 +145,8 @@
     allNavLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.getElementById(link.dataset.target);
-            if (target) {
-                setActive(link.dataset.target);
-                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+            setActive(link.dataset.target);
+            scrollToId(link.dataset.target);
         });
         link.addEventListener('mouseenter', () => linksFor(link.dataset.target).forEach(l => l.classList.add('hover-highlight')));
         link.addEventListener('mouseleave', () => linksFor(link.dataset.target).forEach(l => l.classList.remove('hover-highlight')));
@@ -155,8 +155,7 @@
     document.querySelectorAll('.timeline-nav-year-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.getElementById(link.getAttribute('href').slice(1));
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            scrollToId(link.getAttribute('href').slice(1));
         });
     });
 
@@ -168,21 +167,19 @@
         });
         // swap the drawn sidebar box and recenter
         document.querySelector('.timeline-nav').classList.toggle('present-tab', tab === 'present');
-        window.dispatchEvent(new Event('resize'));
+        updateNavTop();
     }
 
-    // Keep sidebar vertically centered in viewport
-    (function() {
-        const nav = document.querySelector('.timeline-nav');
-        function updateTop() {
-            nav.style.top = Math.max(90, (window.innerHeight - nav.offsetHeight) / 2) + 'px';
-        }
-        updateTop();
-        window.addEventListener('resize', updateTop);
-    })();
+    // keep the sidebar vertically centered in the viewport
+    const timelineNav = document.querySelector('.timeline-nav');
+    function updateNavTop() {
+        timelineNav.style.top = Math.max(90, (window.innerHeight - timelineNav.offsetHeight) / 2) + 'px';
+    }
+    updateNavTop();
+    window.addEventListener('resize', updateNavTop);
 
     // box open/close — frames stepped in sync with the card's scale transition
-    const BOX_FRAME_BASE = "{{ url_for('static', filename='svgs/') }}";
+    const BOX_FRAME_BASE = '/static/svgs/';
     function frameUrl(f) {
         const suffix = document.body.classList.contains('dark') ? '-dark'
                      : document.body.classList.contains('brown') ? '' : '-light';
@@ -250,7 +247,6 @@
         };
     });
 
-    // clicking the Memories header opens all boxes (or closes all if none closed)
     document.getElementById('memories-header').addEventListener('click', () => {
         const cards = Array.from(document.querySelectorAll('.timeline-card'));
         const anyClosed = cards.some(card => !card._box.isOpen());

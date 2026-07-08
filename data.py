@@ -152,6 +152,10 @@ timeline = [
 
 timeline.sort(key=lambda x: int(x['year'].split('-')[0]))
 
+# anchor ids for the sidebar links; entries can pin their own (e.g. water-turret)
+for i, item in enumerate(timeline, 1):
+    item.setdefault("id", f"timeline-item-{i}")
+
 favourites = {
     "artists": [
     {"name": "Justin Bieber", "link": "https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s", "embed": "https://open.spotify.com/embed/artist/1uNFoZAHBGtllmzznpCI3s"},
@@ -185,7 +189,7 @@ favourites = {
 
 hobbies = [
     {"name": "Chess",            "description": "I'm rly a thinker", "image": "chess.webp", "link": "https://www.chess.com/member/lucianbai0808"},
-    {"name": "Ultimate Frisbee", "description": "Best sport ever",         "image": "frisbee1.webp", "link": None},
-    {"name": "Piano",            "description": "This my shit",  "image": "piano.webp", "link": None},
-    {"name": "Guitar",            "description": "This kinda my shit",  "image": "guitar2.webp", "link": None},
+    {"name": "Ultimate Frisbee", "description": "Best sport ever",     "image": "frisbee1.webp"},
+    {"name": "Piano",            "description": "This my shit",        "image": "piano.webp"},
+    {"name": "Guitar",           "description": "This kinda my shit",  "image": "guitar2.webp"},
 ]
