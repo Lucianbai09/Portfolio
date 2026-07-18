@@ -131,16 +131,6 @@ timeline = [
         "image": "nokia_timeline.webp",
         "link": "https://www.nokia.com/careers/our-locations/canada/students-and-graduates/future-tech-summer-internship/"
     },
-    {
-        "year": "2026",
-        "title": "Water Turret",
-        "id": "water-turret",
-        "category": "Project",
-        "description": "Building an autonomous water turret that detects things using AI. Built with Raspberry Pi 5, OpenCV, and computer vision.",
-        "image": "drawing_timeline.png",
-        "doodle": True,
-        "link": ""
-    },
 
     {
         "year": "2026-present",
@@ -150,11 +140,20 @@ timeline = [
         "image": "cs_club_timeline.webp",
         "link": "https://www.instagram.com/petcsclub/" 
     },
+
+    {
+        "year": "2026",
+        "title": "Waste Wise",
+        "category": "Project",
+        "description": "Built AI trash sorting website (HTML/CSS/JS + Flask + Gemini), winning most impact at JecHacks 2026.",
+        "image": "waste_wise_timeline.webp",
+        "link": "https://waste-wise-snowy.vercel.app/"
+    },
 ]
 
 timeline.sort(key=lambda x: int(x['year'].split('-')[0]))
 
-# anchor ids for the sidebar links; entries can pin their own (e.g. water-turret)
+# anchor ids for the sidebar links; entries can pin their own (e.g. locally)
 for i, item in enumerate(timeline, 1):
     item.setdefault("id", f"timeline-item-{i}")
 
