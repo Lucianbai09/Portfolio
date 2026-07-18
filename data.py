@@ -192,6 +192,6 @@ favourites = {
 hobbies = [
     {"name": "Chess",            "description": "I'm rly a thinker", "image": "chess.webp", "link": "https://www.chess.com/member/lucianbai0808"},
     {"name": "Ultimate Frisbee", "description": "Best sport ever",     "image": "frisbee1.webp"},
-    {"name": "Piano",            "description": "This my shit",        "image": "piano.webp"},
-    {"name": "Guitar",           "description": "This kinda my shit",  "image": "guitar2.webp"},
+    {"name": "Piano",            "description": "This my thing",        "image": "piano.webp"},
+    {"name": "Guitar",           "description": "This kinda my thing",  "image": "guitar2.webp"},
 ]
