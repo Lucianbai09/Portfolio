@@ -58,11 +58,19 @@
                     {% if item.image %}
                     {% if item.link %}
                     <a href="{{ item.link }}" target="_blank" class="timeline-image-link" onclick="event.stopPropagation()">
+                        {% if item.doodle %}
+                        <div class="timeline-doodle" role="img" aria-label="{{ item.title }}"></div>
+                        {% else %}
                         <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image" loading="lazy">
+                        {% endif %}
                     </a>
                     {% else %}
                     <div class="timeline-image-link">
+                        {% if item.doodle %}
+                        <div class="timeline-doodle" role="img" aria-label="{{ item.title }}"></div>
+                        {% else %}
                         <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.title }}" class="timeline-image" loading="lazy">
+                        {% endif %}
                     </div>
                     {% endif %}
                     {% endif %}

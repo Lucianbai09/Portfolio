@@ -564,6 +564,15 @@ button:hover {
     display: block;
 }
 
+/* placeholder drawing entries — theme-colored mask like .card-doodle */
+.timeline-doodle {
+    width: 100%;
+    height: 100%;
+    background-color: var(--border-color);
+    -webkit-mask: url('/static/images/drawing_timeline.png') no-repeat center / contain;
+    mask: url('/static/images/drawing_timeline.png') no-repeat center / contain;
+}
+
 /* footer */
 .footer {
     text-align: center;
@@ -722,6 +731,7 @@ button:hover {
 
 /* black ink for the doodles and carousel arrows in brown mode */
 .brown .card-doodle,
+.brown .timeline-doodle,
 .brown .carousel-btn.sketch-box::after {
     background-color: black;
 }

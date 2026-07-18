@@ -4,7 +4,7 @@ timeline = [
         "title": "Started Programming",
         "category": "Experience",
         "description": "Began self-learning Python online through University of Helsinki's 'Python Programming MOOC 2024' course.",
-        "image": "mooc2024.webp",
+        "image": "mooc2024_timeline.webp",
         "link": "https://programming-24.mooc.fi/"
     },
     {
@@ -12,7 +12,7 @@ timeline = [
         "title": "Music Council Grade Rep",
         "category": "Experience",
         "description": "Served as grade representative on Trudeau Music's music council.",
-        "image": "mooc2024.webp",
+        "image": "music_council_timeline.webp",
         "link": "https://trudeaumusic.wixsite.com/peths"
     },
     {
@@ -20,7 +20,7 @@ timeline = [
         "title": "DECA Regional Champion",
         "category": "Competition",
         "description": "Top 10 roleplay, Top 10 MC, Top 3 overall at DECA Regionals in Principles of Business Management and Administration.",
-        "image": "mooc2024.webp",
+        "image": "deca_timeline.webp",
         "link": "https://deca.ca/v2/about-regionals/"
     },
 
@@ -29,7 +29,7 @@ timeline = [
         "title": "CPR Certification",
         "category": "Achievement",
         "description": "Obtained Red Cross Standard First Aid & CPR/AED Level C certification through Heart2Heart First Aid/CPR.",
-        "image": "mooc2024.webp",
+        "image": "cpr_timeline.webp",
         "link": "https://heart2heartcpr.com/locations/markham/"
     },
 
@@ -38,7 +38,7 @@ timeline = [
         "title": "Autotyper",
         "category": "Project",
         "description": "My first coding project, a GUI tool that types out pasted text with custom delays and breaks. Built with Python and Tkinter.",
-        "image": "mooc2024.webp",
+        "image": "autotyper_timeline.webp",
         "link": "https://github.com/Lucianbai09/autotyper"
     },
     {
@@ -46,7 +46,7 @@ timeline = [
         "title": "Pedalheads Bike Instructor",
         "category": "Experience",
         "description": "Taught 50+ children ages 4-10 how to ride bikes with over 150+ hours of instruction.",
-        "image": "pedalheadslogo.webp",
+        "image": "pedalheadslogo_timeline.webp",
         "link": "https://pedalheads.com/en/bike"
     },
     {
@@ -54,7 +54,7 @@ timeline = [
         "title": "Webtoon Tracker",
         "category": "Project",
         "description": "My first web app, a Webtoon chapter and status tracking platform. Built with Flask (Jinja2), SQLite, HTML, and CSS.",
-        "image": "mooc2024.webp",
+        "image": "webtoon_timeline.webp",
         "link": "https://github.com/Lucianbai09/Webtoon-App"
     },
     {
@@ -62,7 +62,7 @@ timeline = [
         "title": "Go-Kart Couch",
         "category": "Project",
         "description": "First physical project, built a motorized couch go-kart, combination of physical engineering and programming.",
-        "image": "couch1.webp",
+        "image": "couch_timeline.webp",
         "link": "https://www.instagram.com/berczy_ultimate"
     },
     {
@@ -70,7 +70,7 @@ timeline = [
         "title": "Berczy Ultimate",
         "category": "Experience",
         "description": "Co-founded Berczy Ultimate. Sponsored by Ultimate Canada and the WFDF.",
-        "image": "mooc2024.webp",
+        "image": "berczy_ultimate_timeline.webp",
         "link": "https://www.instagram.com/berczy_ultimate"
     },
     {
@@ -78,7 +78,7 @@ timeline = [
         "title": "Vex V5 Robotics",
         "category": "Competition",
         "description": "Lead coder (C++) and builder for PETHS school team, Trubotics, quarter finalists at Ontario provincials",
-        "image": "mooc2024.webp",
+        "image": "robotics_timeline.webp",
         "link": "https://github.com/Lucianbai09/Robotics-2025-2026"
     },
     {
@@ -86,7 +86,7 @@ timeline = [
         "title": "FBLC: Coding and Programming",
         "category": "Competition",
         "description": "Placed 5th nationally in team competition with 'Locally' project as a solo participant.",
-        "image": "fblc.webp",
+        "image": "fblc_timeline.webp",
         "link": "https://fblc.ca/coding-and-programming"
     },
     {
@@ -95,7 +95,7 @@ timeline = [
         "id": "locally",
         "category": "Project",
         "description": "Web app to help users discover and support local businesses. Built with Flask (Jinja2), PostgreSQL, HTML, and CSS.",
-        "image": "locally.webp",
+        "image": "locally_timeline.webp",
         "link": "https://fblc-business-project-fwjvzk3wl-lucian-bais-projects.vercel.app/"
     },
     {
@@ -103,7 +103,7 @@ timeline = [
         "title": "Young Sparks STEM Workshop",
         "category": "Experience",
         "description": "Hosted a hands on STEM workshop for 25+ children in collaboration with Minds In Motion STEM INC.",
-        "image": "workshop.webp",
+        "image": "workshop_timeline.webp",
         "link": "https://www.instagram.com/berczy_ultimate"
     },
     {
@@ -111,7 +111,7 @@ timeline = [
         "title": "Varsity Frisbee Team",
         "category": "Experience",
         "description": "Member of Pierre Elliott Trudeau High School's Varsity Ultimate Frisbee Team.",
-        "image": "frisbee2.webp",
+        "image": "frisbee2_timeline.webp",
         "link": "https://www.instagram.com/p/DZq9zrrlslc/"
     },
     {
@@ -119,7 +119,8 @@ timeline = [
         "title": "Flask Portfolio Website",
         "category": "Project",
         "description": "Created a personal portfolio website using Flask (Jinja2), JavaScript, HTML and CSS.",
-        "image": "mooc2024.webp",
+        "image": "drawing_timeline.png",
+        "doodle": True,
         "link": "https://github.com/Lucianbai09/Portfolio"
     },
     {
@@ -127,7 +128,7 @@ timeline = [
         "title": "Nokia Future Tech Summer Internship",
         "category": "Experience",
         "description": "Selected for Nokia's Future Tech summer internship program.",
-        "image": "nokia.webp",
+        "image": "nokia_timeline.webp",
         "link": "https://www.nokia.com/careers/our-locations/canada/students-and-graduates/future-tech-summer-internship/"
     },
     {
@@ -136,7 +137,8 @@ timeline = [
         "id": "water-turret",
         "category": "Project",
         "description": "Building an autonomous water turret that detects things using AI. Built with Raspberry Pi 5, OpenCV, and computer vision.",
-        "image": "mooc2024.webp",
+        "image": "drawing_timeline.png",
+        "doodle": True,
         "link": ""
     },
 
@@ -145,7 +147,7 @@ timeline = [
         "title": "CS Club Exec",
         "category": "Experience",
         "description": "General executive for Pierre Elliot Trudeau High School's CS Club",
-        "image": "mooc2024.webp",
+        "image": "cs_club_timeline.webp",
         "link": "https://www.instagram.com/petcsclub/" 
     },
 ]
